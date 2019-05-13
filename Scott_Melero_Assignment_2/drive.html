@@ -1,0 +1,71 @@
+<!-- CMPS 160, Assignment 2 -->
+<!-- Scott Melero, Stmelero@ucsc.edu -->
+
+<html lang = "en">
+<!DOCTYPE html>
+  <head>
+    <!-- Head code -->
+    <meta charset="utf-8"/>
+    <title> Stmelero, Assignment 2 </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.icons101.com/icon_ico/id_77231/Terminal.ico"/>
+
+    <!-- Include external libs -->
+    <script src = "lib/webgl-utils.js"></script>
+    <script src = "lib/webgl-render.js"></script>
+    <script src = "lib/webgl-debug.js"></script>
+    <script src = "lib/webgl-loader.js"></script>
+    <script src = "lib/cuon-utils.js"></script>
+    <script src = "lib/cuon-matrix.js"></script>
+
+    <!-- Include shaders -->
+    <script src = "src/graphics/shaders/shader.js"></script>
+    <script src = "src/graphics/shaders/asg1.js"></script>
+    
+    <!-- Include Base code -->
+    <script src = "src/graphics/geometry/vertex.js"></script>
+    <script src = "src/graphics/geometry/geometry.js"></script>
+    <script src = "src/graphics/geometry/shapes/triangle.js"></script>
+    <script src = "src/graphics/geometry/shapes/circle.js"></script>
+    <script src = "src/graphics/geometry/shapes/cube.js"></script>
+    <script src = "src/graphics/geometry/shapes/square.js"></script> 
+    <script src = "src/graphics/geometry/shapes/custom.js"></script>
+    <script src = "src/graphics/renderer.js"></script>
+    <script src = "src/graphics/scene.js"></script>
+    <script src = "src/main.js"></script>
+    <script src = "src/input.js"></script> 
+  </head>
+
+  <body onload = "main()">
+    <canvas id="webgl" width="400" height="400"> </canvas>
+    <p id="canvas"></p>
+
+    <!-- Clear button -->
+    <br></br>
+    <button id="Clear"> Clear Canvas</button>
+
+    <!-- Buttons to load and print file content -->
+    <b>Set OBJ:</b> <input type="file" id="fileInput"/>
+    <button type="button" id="fileLoad">Add OBJ to scene</button>
+
+    <!-- Shape buttons -->
+    <h2>Drawing mode:</h2>
+    <button id="square" >Spinning Squares</button>
+    <button id="triangle" >Fluctiating Triangles</button>
+    <button id="circle" >Randomly Moving Circles</button> 
+    <button id="cube" >Tilted Cube</button> 
+
+    <!-- Color sliders -->
+    <h3>Shape Color:</h3>
+    <div class="slidecontainer">
+      <b>Red</b><input type="range" min="0" max="255" value="125" class="slider" id="Red">
+      <b>Green</b><input type="range" min="0" max="255" value="125" class="slider" id="Green">
+      <b>Blue</b><input type="range" min="0" max="255" value="125" class="slider" id="Blue">
+    </div>
+
+    <!-- shape and segemnt sliders -->
+    <div class="slidecontainer">
+      <b>Shape Size:</b><input type="range" min="1" max="100" value="50" class= "slider" id="Size">
+      <b>(Circles) Segment Count:</b><input type="range" min="6" max="60" value="6" class="slider" id="Segment">
+    </div>
+  </body>
+</html>
