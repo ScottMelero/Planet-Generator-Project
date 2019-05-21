@@ -18,47 +18,52 @@ class InputHandler {
       _inputHandler = this;
 
       // Mouse Events
-      this.canvas.onmousedown = function(ev) { _inputHandler.mouseClick(ev) };
       this.canvas.onmousemove = function(ev) { _inputHandler.mouseMove(ev) };
+      this.canvas.addEventListener = ('wheel', function(ev){ _inputHandler.mouseZoom(ev)} )
 
       // Keyboard Events
-      document.addEventListener('keydown', function(ev) { _inputHandler.keyDown(ev); }, false);
-      document.addEventListener('keyup',   function(ev) { _inputHandler.keyUp(ev);   }, false);
-    }
-
-    /**
-     * Function called upon mouse click.
-     */
-    mouseClick(ev) {
-        // Print x,y coordinates.
-        console.log(ev.clientX, ev.clientY);
-
-        var shape = new Triangle(shader);
-        this.scene.addGeometry(shape);
+      document.addEventListener('keydown', function(ev) { _inputHandler.keyDown(ev); });
     }
 
     mouseMove(ev) {
         var movementX = ev.movementX;
-        console.log("movementX", movementX);
-
         var movementY = ev.movementY;
-        console.log("movementY", movementY);
+        
+        if(movementY > 0){
+            this.camera.tilt(-1.5)
+        }else if(movementY < 0){
+            this.camera.tilt(1.5)
+        }
+
+        if(movementX > 0 ){
+            this.camera.pan(1.5)
+        }else if(movementX < 0){
+            this.camera.pan(-1.5)
+        }
     }
 
-    keyUp(ev) {
-        var keyName = event.key;
-        console.log("key up", keyName);
+    mouseZoom(ev){ 
+        var moveY = ev.deltaY;
+        if(moveY > 0){
+            this.camera.setZoom(1)
+        }else if(moveY < 0){
+            this.camera.setZoom(-1)
+        }
     }
 
     keyDown(ev) {
-        var keyName = event.key;
-        console.log("key down", keyName);
+        var keyName = event.key
 
-        if(keyName == "a") {
-            this.camera.truck(1);
-        }
-        else if(keyName == "d") {
+        if(keyName == "a" || keyName == "ArrowLeft") {
             this.camera.truck(-1);
+        }else if(keyName == "d" || keyName == "ArrowRight") {
+            this.camera.truck(1);
+        }else if(keyName == "w" || keyName == "ArrowUp"){
+            this.camera.dolly(-1)
+        }else if(keyName == "s" || keyName == "ArrowDown"){
+            this.camera.dolly(1)
+        }else if(keyName =='z'){
+            this.camera.setDistance();
         }
     }
 

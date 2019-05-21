@@ -18,7 +18,7 @@ class Renderer {
         this.gl = gl;
         this.scene = scene;
         this.camera = camera;
-
+        
         this.textures = {};
 
         this.initGLSLBuffers();

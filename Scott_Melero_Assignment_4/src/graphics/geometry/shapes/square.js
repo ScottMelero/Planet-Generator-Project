@@ -1,72 +1,56 @@
 /**
- * Specifies a triangle. A subclass of geometry.
+ * Specifies a square. A subclass of geometry.
  *
  * @author Lucas N. Ferreira
- * @this {Triangle}
+ * @this {Square}
  */
 class Square extends Geometry {
   /**
-   * Constructor for Triangle.
+   * Constructor for Square.
    *
    * @constructor
    * @param {Shader} shader Shading object used to shade geometry
-   * @returns {Triangle} Triangle created
+   * @returns {Square} Square created
    */
-  constructor(shader, x, y) {
+  constructor(shader, image) {
       super(shader);
 
-      this.vertices = this.generateSquareVertices(x, y);
-      this.faces = {0: this.verticies};
+      this.image = image
 
-      // Translate origin to center of the object and update matrix
-      this.translationMatrix = new Matrix4();
-      this.translationMatrix.setTranslate(x, y, 0);
-
-      // Rotate the matrix around object's center
-      this.rotationMatrix = new Matrix4();
-      this.rotationMatrix.setRotate(-0.5, 0, 0, 1);
+      this.vertices = this.generateSquareVertices()
+      this.faces = {0: this.vertices};
 
       // CALL THIS AT THE END OF ANY SHAPE CONSTRUCTOR
       this.interleaveVertices();
   }
 
-  generateSquareVertices(x, y) {
+  generateSquareVertices() {
       var vertices = []
 
-      var size = document.getElementById("Size").value/200;  
-
-      // Vertex 0
-      var vertex0 = new Vertex(x, y + size, 0.0);
-      vertices.push(vertex0);
-
-      // Vertex1
-      var vertex1 = new Vertex(x, y, 0.0);
+      var vertex1 = new Vertex(-16, -1, -16)
+      vertex1.texCoord = [0.0, 0.0]
       vertices.push(vertex1);
 
-      // Vertex 2
-      var vertex2 = new Vertex(x + size, y, 0.0);
+      var vertex2 = new Vertex(16, -1, -16)
+      vertex2.texCoord = [1.0, 0.0]
       vertices.push(vertex2);
 
-      // Vertex3 for shared points
-      var vertex3 = new Vertex(x, y + size, 0.0);
+      var vertex3 = new Vertex(16, -1, 16)
+      vertex3.texCoord = [1.0, 1.0]
       vertices.push(vertex3);
 
-      // Vertex4 for shared points
-      var vertex4 = new Vertex(x + size, y, 0.0);
-      vertices.push(vertex4);
+      var vertex4 = new Vertex(-16, -1, -16)
+      vertex4.texCoord = [0.0, 0.0]
+      vertices.push(vertex4)
 
-      // Vertex5 for other half of the square 
-      var vertex5 = new Vertex(x + size, y + size, 0.0);
-      vertices.push(vertex5);
+      var vertex5 = new Vertex(-16, -1, 16)
+      vertex5.texCoord = [0.0, 1.0]
+      vertices.push(vertex5)
+
+      var vertex6 = new Vertex(16, -1, 16)
+      vertex6.texCoord = [1.0, 1.0] 
+      vertices.push(vertex6)
 
       return vertices;
-   }
-
-   render() {
-     this.modelMatrix = this.modelMatrix.multiply(this.rotationMatrix);
-     // this.modelMatrix = this.modelMatrix.multiply(this.translationMatrix);
-     // this.modelMatrix = this.modelMatrix.multiply(this.scalingMatrix);
-
-     this.shader.setUniform("u_ModelMatrix", this.modelMatrix.elements);
   }
 }
