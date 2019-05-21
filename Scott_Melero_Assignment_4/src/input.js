@@ -19,7 +19,7 @@ class InputHandler {
 
       // Mouse Events
       this.canvas.onmousemove = function(ev) { _inputHandler.mouseMove(ev) };
-      this.canvas.addEventListener = ('wheel', function(ev){ _inputHandler.mouseZoom(ev)} )
+      this.canvas.addEventListener ('wheel', function(ev){ _inputHandler.mouseZoom(ev)}, false )
 
       // Keyboard Events
       document.addEventListener('keydown', function(ev) { _inputHandler.keyDown(ev); });
@@ -28,17 +28,20 @@ class InputHandler {
     mouseMove(ev) {
         var movementX = ev.movementX;
         var movementY = ev.movementY;
+
+      //  var x = ev.clientX; 
+     // var y = ev.clientY;
         
         if(movementY > 0){
-            this.camera.tilt(-1.5)
+            this.camera.tilt(-1)
         }else if(movementY < 0){
-            this.camera.tilt(1.5)
+            this.camera.tilt(1)
         }
 
         if(movementX > 0 ){
-            this.camera.pan(1.5)
+            this.camera.pan(1)
         }else if(movementX < 0){
-            this.camera.pan(-1.5)
+            this.camera.pan(-1)
         }
     }
 
@@ -54,16 +57,14 @@ class InputHandler {
     keyDown(ev) {
         var keyName = event.key
 
-        if(keyName == "a" || keyName == "ArrowLeft") {
+        if(keyName == "a" || keyName == "Left") {
             this.camera.truck(-1);
-        }else if(keyName == "d" || keyName == "ArrowRight") {
+        }else if(keyName == "d" || keyName == "Right") {
             this.camera.truck(1);
-        }else if(keyName == "w" || keyName == "ArrowUp"){
+        }else if(keyName == "w" || keyName == "Up"){
             this.camera.dolly(-1)
-        }else if(keyName == "s" || keyName == "ArrowDown"){
+        }else if(keyName == "s" || keyName == "Down"){
             this.camera.dolly(1)
-        }else if(keyName =='z'){
-            this.camera.setDistance();
         }
     }
 

@@ -4,6 +4,35 @@ function main() {
   // Retrieve the canvas from the HTML document
   canvas = document.getElementById("webgl");
 
+  // pointer lock object forking for cross browser
+  canvas.requestPointerLock = canvas.requestPointerLock ||
+  canvas.mozRequestPointerLock;
+
+  document.exitPointerLock = document.exitPointerLock ||
+  document.mozExitPointerLock;
+
+  canvas.onclick = function() { canvas.requestPointerLock(); };
+
+  // pointer lock event listeners
+
+  // Hook pointer lock state change events for different browsers
+  document.addEventListener('pointerlockchange', lockChangeAlert, false);
+  document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
+
+  function lockChangeAlert() 
+    {
+    if (document.pointerLockElement === canvas || document.mozPointerLockElement === canvas)
+      {
+        console.log('The pointer lock status is now locked');
+        document.addEventListener("mousemove", updatePosition, false);
+      } 
+      else 
+      {
+        console.log('The pointer lock status is now unlocked');  
+        document.removeEventListener("mousemove", updatePosition, false);
+      }
+    }
+
   // Retrieve WebGL rendering context
   var gl = getWebGLContext(canvas);
   if (!gl) {
@@ -32,15 +61,15 @@ function main() {
 
   // Load texture and add triangle to the scene with that texture.
   inputHandler.readTexture("objs/dirt.jpg", function(image) {
-    for (i = 0; i < 1;i = i +.20){
+    for (i = 0; i < 2;i = i +.20){
       var shape = new Cube(shader,i, -.875, 0, .125, image)
       scene.addGeometry(shape)
   }
-  for (i = .25; i < 1;i = i +.20){
+  for (i = .25; i < 2;i = i +.20){
       var shape = new Cube(shader,i, -.625, 0, .125, image)
       scene.addGeometry(shape)
   }
-  for (i = .5; i < 1;i = i +.20){
+  for (i = .5; i < 2;i = i +.20){
       var shape = new Cube(shader,i, -.375, 0, .125, image)
       scene.addGeometry(shape)
   }
@@ -48,14 +77,14 @@ function main() {
   scene.addGeometry(shape)
 
   for (i = 0; i < 1;i = i +.20){
-    for (j = 0; j < 1;j = j +.20){
+    for (j = 0; j < 5;j = j +.20){
       var shape = new Cube(shader,-1, i-.875, j, .125, image)
       scene.addGeometry(shape)
     }
   }
 
   for (i = 0; i < 1;i = i +.25){
-    for (j = 0; j < 1;j = j +.25){
+    for (j = 0; j < 3;j = j +.25){
       var shape = new Cube(shader,1, i-.875, j, .125, image)
       scene.addGeometry(shape)
     }
