@@ -8,13 +8,13 @@ function main() {
   canvas.requestPointerLock = canvas.requestPointerLock ||
   canvas.mozRequestPointerLock;
 
-  document.exitPointerLock = document.exitPointerLock ||
+  document.exitPointerLock = document.exitPointerLock || 
   document.mozExitPointerLock;
 
   canvas.onclick = function() { canvas.requestPointerLock(); };
 
   // pointer lock event listeners
-
+ 
   // Hook pointer lock state change events for different browsers
   document.addEventListener('pointerlockchange', lockChangeAlert, false);
   document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
@@ -58,9 +58,12 @@ function main() {
   shader.addAttribute("a_Color");
   shader.addAttribute("a_TexCoord");
 
+  // Add uinforms 
   shader.addUniform("u_Sampler", "sampler2D", new Matrix4().elements);
   shader.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
   shader.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+
+  // Set camera distance 
   camera.setDistance()
 
   // Load texture and add triangle to the scene with that texture.
