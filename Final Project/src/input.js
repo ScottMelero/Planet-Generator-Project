@@ -21,10 +21,10 @@ class InputHandler {
       this.canvas.onmouseover = function(ev) { _inputHandler.mouseMove(ev) };
       this.canvas.addEventListener('wheel', function(ev) { _inputHandler.mouseZoom(ev)}, false)
 
-      //shape buttons 
-      document.getElementById("Planet 1").onclick = function(){ _inputHandler.alert1();}
-      document.getElementById("Planet 2").onclick = function(){ _inputHandler.alert2();}
-      document.getElementById("Planet 3").onclick = function(){ _inputHandler.alert3();}
+    //   //shape buttons 
+    //   document.getElementById("Planet 1").onclick = function(){ _inputHandler.alert1();}
+    //   document.getElementById("Planet 2").onclick = function(){ _inputHandler.alert2();}
+    //   document.getElementById("Planet 3").onclick = function(){ _inputHandler.alert3();}
 
       // Keyboard Events
       document.addEventListener('keydown', function(ev) { _inputHandler.keyDown(ev); }, false);
@@ -91,21 +91,21 @@ class InputHandler {
         return true;
     }
 
-    alert1()
-    {
-        window.alert("this is a firey planet");
-        return;
-    }
+    // alert1()
+    // {
+    //     window.alert("this is a firey planet");
+    //     return;
+    // }
 
-    alert2()
-    {
-        window.alert("this is a forest planet");
-        return;
-    }
+    // alert2()
+    // {
+    //     window.alert("this is a forest planet");
+    //     return;
+    // }
 
-    alert3()
-    {
-        window.alert("this is a water planet");
-        return;
-    }
+    // alert3()
+    // {
+    //     window.alert("this is a water planet");
+    //     return;
+    // }
 }
