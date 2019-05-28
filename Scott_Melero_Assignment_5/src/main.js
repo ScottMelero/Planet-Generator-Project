@@ -119,7 +119,7 @@ shader2.addUniform("shininessVal", "float", 80.0)
   })
 
   inputHandler.readTexture("objs/sky.png", function(image) {
-    var shape = new Cube(shader, 0, 0, 8, 10, image)
+    var shape = new Cube(shader, 0, 0, 8, 5, image)
     scene.addGeometry(shape)
 })
 
