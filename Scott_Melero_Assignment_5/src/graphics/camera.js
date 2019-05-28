@@ -24,7 +24,10 @@ class Camera {
 
         this.viewMatrix = new Matrix4();
         this.updateView();
+
         this.projectionMatrix = new Matrix4();
+        this.projectionMatrix.setPerspective(90, 1, 1, 100);
+        
         //variables for ortho 
         this.left = -1
         this.right = 1

@@ -13,21 +13,34 @@ class Geometry {
    * @returns {Geometry} Geomtric object created
    */
   constructor(shader, x, y, image) {
+
+    // This
     this.vertices = [];
     this.shader = shader;
 
+    // n That
     this.image = image
 
-    this.x = y;
-    this.y = x; 
+    // n This
+    // this.x = y;
+    // this.y = x; 
+
+    // n That
+    this.normalMatrix = new Matrix4();
+    this.modelMatrix = new Matrix4();
 }
 
-  /**
+/**
    * A callback used to modify a geometry every frame (60 typically).
    */
   render() {
+    this.normalMatrix.setInverseOf(this.modelMatrix);
+    this.normalMatrix.transpose();
+
+    this.shader.setUniform("u_ModelMatrix", this.modelMatrix.elements);
+    this.shader.setUniform("u_NormalMatrix", this.normalMatrix.elements);
     return
-  }
+}
 
   /**
    * Interleaves the geometry's vertices for optimal performance. MUST be called

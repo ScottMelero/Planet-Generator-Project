@@ -66,8 +66,8 @@ class InputHandler {
         var movementX = ev.movementX;
         var movementY = ev.movementY;
 
-      //  var x = ev.clientX; 
-     // var y = ev.clientY;
+        // var x = ev.clientX; 
+        // var y = ev.clientY;
         
         if(movementY > 0){
             this.camera.tilt(-1)

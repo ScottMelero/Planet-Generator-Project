@@ -1,4 +1,5 @@
 var shader = null;
+var cycle = 0;
 
 function main() {
   // Retrieve the canvas from the HTML document
@@ -57,46 +58,59 @@ function main() {
   shader.addAttribute("a_Position");
   shader.addAttribute("a_Color");
   shader.addAttribute("a_TexCoord");
+  shader.addAttribute("a_Normal");
 
-  // Add uinforms 
-  shader.addUniform("u_Sampler", "sampler2D", new Matrix4().elements);
+  // Add uinforms
+  shader.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
   shader.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
   shader.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+  shader.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
+
+  // Add uniforms for phong shader
+  shader.addUniform("u_LightPosition", "vec3", new Vector3().elements);
+  shader.addUniform("u_LightColor", "vec3", new Vector3().elements);
+  shader.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
+  shader.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
+  shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+
+  // Initialize shader
+shader2 = new Shader(gl, ASG1_VSHADER, ASG1_FSHADER);
+
+// Add attibutes
+shader2.addAttribute("a_Position");
+shader2.addAttribute("a_Color");
+shader2.addAttribute("a_Normal");
+
+shader2.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
+shader2.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
+shader2.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
+shader2.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+
+shader2.addUniform("u_LightPosition", "vec3", new Vector3().elements);
+shader2.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
+shader2.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
+shader2.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+
+shader2.addUniform("Ka", "float", 1.0)
+shader2.addUniform("Kd", "float", 1.0)
+shader2.addUniform("Ks", "float", 1.0)
+shader2.addUniform("shininessVal", "float", 80.0)
 
   // Set camera distance 
   camera.setDistance()
 
   // Load texture and add triangle to the scene with that texture.
-  inputHandler.readTexture("objs/dirt.jpg", function(image) {
-    for (i = 0; i < 2;i = i +.20){
-      var shape = new Cube(shader,i, -.875, 0, .125, image)
-      scene.addGeometry(shape)
-  }
-  for (i = .25; i < 2;i = i +.20){
-      var shape = new Cube(shader,i, -.625, 0, .125, image)
-      scene.addGeometry(shape)
-  }
-  for (i = .5; i < 2;i = i +.20){
-      var shape = new Cube(shader,i, -.375, 0, .125, image)
-      scene.addGeometry(shape)
-  }
-  var shape = new Cube(shader,.75, -.125, 0, .125, image)
-  scene.addGeometry(shape)
-
-  for (i = 0; i < 1;i = i +.20){
-    for (j = 0; j < 5;j = j +.20){
-      var shape = new Cube(shader,-1, i-.875, j, .125, image)
-      scene.addGeometry(shape)
-    }
-  }
-
-  for (i = 0; i < 1;i = i +.25){
-    for (j = 0; j < 3;j = j +.25){
-      var shape = new Cube(shader,1, i-.875, j, .125, image)
-      scene.addGeometry(shape)
-    }
-  }
-  })
+  inputHandler.readTexture("objs/dirt.jpg", function(image) 
+    {  
+      for (i = 0; i < 1;i = i +.20)
+        {
+          for (j = 0; j < 5;j = j +.20)
+            {
+              var shape = new Cube(shader,-3, i-.875, j, .125, image)
+              scene.addGeometry(shape)
+            }
+        }
+    })
 
   //create square and add it 
   inputHandler.readTexture("objs/grass.jpg", function(image) {
@@ -109,7 +123,29 @@ function main() {
     scene.addGeometry(shape)
 })
 
-  // Initialize renderer with scene and camera
-  renderer = new Renderer(gl, scene, camera);
-  renderer.start();
+// Add the end and start sphere
+var shape = new Sphere(shader, 13);
+scene.addGeometry(shape);
+
+// Initialize renderer with scene and camera
+renderer = new Renderer(gl, scene, camera);
+renderer.start();
+
+var tick = function() {
+  //-y, +z for night 
+      
+    if(cycle > 450)  
+        cycle = 0; 
+    else if(cycle > 300)
+        light.rotateLight(0, 1, 0);
+    else if(cycle > 150)
+        light.rotateLight(-1, -1, -1);
+    else if(cycle <= 150) 
+        light.rotateLight(1, 0, 1);
+    cycle++;
+    
+    requestAnimationFrame(tick);
+  }
+  tick();
+
 }

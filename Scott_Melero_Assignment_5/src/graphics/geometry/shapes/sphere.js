@@ -11,7 +11,6 @@ class Sphere extends Geometry {
 
       this.vertices = this.generateSphereVertices(segments);
 
-      // CALL THIS AT THE END OF ANY SHAPE CONSTRUCTOR
       this.interleaveVertices();
   }
 
@@ -77,12 +76,5 @@ class Sphere extends Geometry {
       }
 
       return vertices;
-   }
-
-   render() {
-       // Transform geometry here!
-       // Rotations!
-
-       super.render();
    }
 }
