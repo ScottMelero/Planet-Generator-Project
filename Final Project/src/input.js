@@ -35,19 +35,10 @@ class InputHandler {
     mouseMove(ev) {
         var movementX = ev.movementX;
         var movementY = ev.movementY;
-        
-        if(movementY > 0){
-            this.camera.tilt(-1)
-        }else if(movementY < 0){
-            this.camera.tilt(1)
-        }
 
-        if(movementX > 0 ){
-            this.camera.pan(1)
-        }else if(movementX < 0){
-            this.camera.pan(-1)
-        }
-    }
+        this.camera.tilt(-movementY/12);
+        this.camera.pan(movementX/12);
+    }   
 
     mouseZoom(ev){ 
         var moveY = ev.deltaY;
@@ -60,20 +51,24 @@ class InputHandler {
     }
 
     keyDown(ev) {
-        var keyName = event.key
+        var keyName = event.key;
+        console.log("key down", keyName);
 
-        if(keyName == "a" || keyName == "ArrowLeft") {
-            this.camera.truck(-1);
-        }else if(keyName == "d" || keyName == "ArrowRight") {
-            this.camera.truck(1);
-        }else if(keyName == "w" || keyName == "ArrowUp"){
-            this.camera.dolly(-1)
-        }else if(keyName == "s" || keyName == "ArrowDown"){
-            this.camera.dolly(1)
-        }else if(keyName =='z'){
-            this.camera.setDistance();
-        }
-    }
+        if(keyName == "a") 
+        {this.camera.truck(-1);}
+
+        else if(keyName == "d") 
+        {this.camera.truck(1);}
+
+        else if(keyName == "w")
+        {this.camera.dolly(-1);}
+
+        else if(keyName == "s")
+        {this.camera.dolly(1);}
+
+        else if(keyName == "z") 
+        {this.camera.addDist();}
+}
 
     readTexture(src, onTexLoad) {
         // Create the image object

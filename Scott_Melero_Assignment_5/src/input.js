@@ -61,26 +61,14 @@ class InputHandler {
         image.src = src
         return true;
     }
-
+    
     mouseMove(ev) {
         var movementX = ev.movementX;
         var movementY = ev.movementY;
 
-        // var x = ev.clientX; 
-        // var y = ev.clientY;
-        
-        if(movementY > 0){
-            this.camera.tilt(-1)
-        }else if(movementY < 0){
-            this.camera.tilt(1)
-        }
-
-        if(movementX > 0 ){
-            this.camera.pan(1)
-        }else if(movementX < 0){
-            this.camera.pan(-1)
-        }
-    }
+        this.camera.tilt(-movementY/12);
+        this.camera.pan(movementX/12);
+    } 
 
     mouseZoom(ev){ 
         var moveY = ev.deltaY;
