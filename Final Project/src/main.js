@@ -182,13 +182,13 @@ function drawWorld(scene, inputHandler, shader, shader2){
     var shape = new Sky(shader, image)
     scene.addGeometry(shape)
   })
-
-  var PlanetOne = new Sphere(shader2, 13, [-9, 0, -9]);
+ 
+  var PlanetOne = new Sphere(shader2, 13, [-40, 20, -25]);
   scene.addGeometry(PlanetOne);
 
-  var PlanetTwo = new Sphere(shader2, 13, [-11, 0, -11]);
+  var PlanetTwo = new Sphere(shader2, 13, [0, 25, -25]);
   scene.addGeometry(PlanetTwo);
 
-  var PlanetThree = new Sphere(shader2, 13, [-13, 0, -13]);
+  var PlanetThree = new Sphere(shader2, 13, [40, 20, -25]);
   scene.addGeometry(PlanetThree)
 }
