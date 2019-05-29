@@ -1,4 +1,6 @@
 var _inputHandler = null;
+var zoompos = - 100, minzoomspeed = .015;
+var zoomspeed = minzoomspeed;
 
 /**
  * Specifies a Input Handler. Used to parse input events from a HTML page.
@@ -22,9 +24,9 @@ class InputHandler {
       this.canvas.addEventListener('wheel', function(ev) { _inputHandler.mouseZoom(ev)}, false)
 
       //shape buttons 
-      document.getElementById("Planet 1").onclick = function(){ _inputHandler.alert1();}
-      document.getElementById("Planet 2").onclick = function(){ _inputHandler.alert2();}
-      document.getElementById("Planet 3").onclick = function(){ _inputHandler.alert3();}
+    //   document.getElementById("Planet 1").onclick = function(){ _inputHandler.alert1();}
+    //   document.getElementById("Planet 2").onclick = function(){ _inputHandler.alert2();}
+    //   document.getElementById("Planet 3").onclick = function(){ _inputHandler.alert3();}
 
       // Keyboard Events
       document.addEventListener('keydown', function(ev) { _inputHandler.keyDown(ev); }, false);
@@ -50,7 +52,8 @@ class InputHandler {
     mouseZoom(ev){ 
         var moveY = ev.deltaY;
         if(moveY > 0){
-            this.camera.setZoom(1)
+            var dir = moveY / Math.abs( moveY );
+            this.camera.setZoom(dir)
         }else if(moveY < 0){
             this.camera.setZoom(-1)
         }
@@ -91,21 +94,21 @@ class InputHandler {
         return true;
     }
 
-    alert1()
-    {
-        window.alert("this is a firey planet");
-        return;
-    }
+    // alert1()
+    // {
+    //     window.alert("this is a firey planet");
+    //     return;
+    // }
 
-    alert2()
-    {
-        window.alert("this is a forest planet");
-        return;
-    }
+    // alert2()
+    // {
+    //     window.alert("this is a forest planet");
+    //     return;
+    // }
 
-    alert3()
-    {
-        window.alert("this is a water planet");
-        return;
-    }
+    // alert3()
+    // {
+    //     window.alert("this is a water planet");
+    //     return;
+    // }
 }
