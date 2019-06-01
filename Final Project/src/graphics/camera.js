@@ -32,7 +32,7 @@ class Camera {
          this.top = 1
  
          //variable for perspective 
-         this.pers = 30; 
+         this.pers = 80; 
  
          this.isOrtho = true; 
      }

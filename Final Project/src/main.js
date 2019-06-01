@@ -1,4 +1,4 @@
-var shader = null;
+//var shader = null;
 
 function main() {
   // Retrieve the canvas from the HTML document
@@ -100,12 +100,12 @@ function main() {
     return;
   }
 
-  var light = new Light(Math.floor(1),Math.floor(1),Math.floor(1));
+  //var light = new Light(Math.floor(1),Math.floor(1),Math.floor(1));
 
   // Initialize the scene
   var scene = new Scene();
   var camera = new Camera();
-  scene.setLight(light);
+  //scene.setLight(light);
 
   var inputHandler = new InputHandler(canvas, scene, camera);
 
@@ -175,18 +175,11 @@ function main() {
 
 function draw2D(ctx) {
   ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
-  // Draw triangle with white lines
-  // ctx.beginPath();                      // Start drawing
-  // ctx.moveTo(120, 10); ctx.lineTo(200, 150); ctx.lineTo(40, 150);
-  // ctx.closePath();
-  // ctx.strokeStyle = 'rgba(255, 255, 255, 1)'; // Set white to color of lines
-  // ctx.stroke();                           // Draw Triangle with white lines
-  // Draw white letters
   ctx.font = '18px "Times New Roman"';
   ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
-  ctx.fillText('HUD: Head Up Display', 1350, 675); 
-  ctx.fillText('In This holy House', 1350, 700); 
-  ctx.fillText('We Eat Ass.', 1350,725); 
+  ctx.fillText('HUD: Head Up Display', 10, canvas.height-60); 
+  ctx.fillText('Im booutta fuckin uuuuhhhh...', 10, canvas.height-35); 
+  ctx.fillText('dab on them.', 10, canvas.height-10); 
 }
 
 
@@ -238,16 +231,16 @@ function draw2D(ctx) {
     // }
 
     //create square and add it 
-    inputHandler.readTexture("objs/darkBlueSky.jpg", function(image) {
+   inputHandler.readTexture("objs/darkBlueSky.jpg", function(image) {
       var square = new Square(shader, image)
       scene.addGeometry(square)
-    })
+   })
 
     //creates the sky
-    inputHandler.readTexture("objs/pinkSky.jpg", function(image) {
+   inputHandler.readTexture("objs/pinkSky.jpg", function(image) {
       var shape = new Sky(shader, image)
       scene.addGeometry(shape)
-    })
+   })
 
     
     var PlanetOne = new Sphere(shader, 5, [-50, 25, 50]);

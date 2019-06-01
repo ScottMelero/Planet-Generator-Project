@@ -31,8 +31,8 @@ class Renderer {
         
         var geometry = this.scene.geometries[0];
 
-        this.gl.useProgram(geometry.shader.program)
-        this.gl.program = geometry.shader.program
+        // this.gl.useProgram(geometry.shader.program)
+        // this.gl.program = geometry.shader.program
 
       
 
