@@ -1,11 +1,21 @@
 var shader = null;
-var timestamp = 0;
-var mY = 0;
 
 function main() {
   // Retrieve the canvas from the HTML document
   canvas = document.getElementById("webgl");
-  hud = document.getElementById('hud');  
+  hud = document.getElementById("hud");  
+
+  if (!canvas || !hud) { 
+    console.log('Failed to get HTML elements');
+    return false; 
+  } 
+
+  // Get the rendering context for 2DCG
+  var ctx = hud.getContext('2d');
+  if (!ctx){ 
+    console.log('Failed to get rendering context');
+    return;
+  }
 
 //   function createOffscreenCanvas(){
 //     // here we create an OFFSCREEN canvas
@@ -73,8 +83,8 @@ function main() {
       canvas.width  = displayWidth;
       canvas.height = displayHeight;
 
-      hud.width = 500;
-      hud.height = canvas.hieght;
+      hud.width = canvas.width;
+      hud.height = canvas.height;
     }
   }
   
@@ -164,19 +174,19 @@ function main() {
   
 
 function draw2D(ctx) {
-  ctx.clearRect(0, 0, 400, 400); // Clear <hud>
+  ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
   // Draw triangle with white lines
-  ctx.beginPath();                      // Start drawing
-  ctx.moveTo(120, 10); ctx.lineTo(200, 150); ctx.lineTo(40, 150);
-  ctx.closePath();
-  ctx.strokeStyle = 'rgba(255, 255, 255, 1)'; // Set white to color of lines
-  ctx.stroke();                           // Draw Triangle with white lines
+  // ctx.beginPath();                      // Start drawing
+  // ctx.moveTo(120, 10); ctx.lineTo(200, 150); ctx.lineTo(40, 150);
+  // ctx.closePath();
+  // ctx.strokeStyle = 'rgba(255, 255, 255, 1)'; // Set white to color of lines
+  // ctx.stroke();                           // Draw Triangle with white lines
   // Draw white letters
   ctx.font = '18px "Times New Roman"';
   ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
-  ctx.fillText('HUD: Head Up Display', 40, 180); 
-  ctx.fillText('In This holy House', 40, 200); 
-  ctx.fillText('We Eat Ass.', 40, 220); 
+  ctx.fillText('HUD: Head Up Display', 1350, 675); 
+  ctx.fillText('In This holy House', 1350, 700); 
+  ctx.fillText('We Eat Ass.', 1350,725); 
 }
 
 
