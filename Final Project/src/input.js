@@ -52,7 +52,6 @@ class InputHandler {
 
     keyDown(ev) {
         var keyName = event.key;
-        console.log("key down", keyName);
 
         if(keyName == "a") 
         {this.camera.truck(-1);}

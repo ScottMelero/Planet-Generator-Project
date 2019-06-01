@@ -28,6 +28,13 @@ class Renderer {
 
         // Use the z-buffer when drawing
         this.gl.enable(gl.DEPTH_TEST);
+        
+        var geometry = this.scene.geometries[0];
+
+        this.gl.useProgram(geometry.shader.program)
+        this.gl.program = geometry.shader.program
+
+      
 
         _renderer = this;
     }
@@ -51,8 +58,8 @@ class Renderer {
             var geometry = this.scene.geometries[i];
 
             // Switch to shader attached to geometry
-            this.gl.useProgram(geometry.shader.program)
-            this.gl.program = geometry.shader.program
+            // this.gl.useProgram(geometry.shader.program)
+            // this.gl.program = geometry.shader.program
 
             if(this.scene.light != null) {
               geometry.shader.setUniform("u_LightPos", this.scene.light.pos.elements);

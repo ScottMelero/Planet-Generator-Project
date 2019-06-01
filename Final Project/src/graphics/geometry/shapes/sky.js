@@ -24,17 +24,17 @@ class Sky extends Geometry {
 
         //front face of Sky with full texture
         var vertex1 = new Vertex(-50, -50, 50);
-        vertex1.texCoord = [0.0, 0.0]
+        //vertex1.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex2 = new Vertex(50, 50, 50);
-        vertex2.texCoord = [1.0, 1.0]
+        //vertex2.texCoord = [Math.floor(1.0), Math.floor(1.0)]
         var vertex3 = new Vertex(-50, 50, 50);
-        vertex3.texCoord = [0.0, 1.0]
+        //vertex3.texCoord = [Math.floor(0.0), Math.floor(1.0)]
         var vertex4 = new Vertex(-50,-50, 50);
-        vertex4.texCoord = [0.0, 0.0]
+        //vertex4.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex5 = new Vertex(50,-50, 50);
-        vertex5.texCoord = [1.0, 0.0]
+        //vertex5.texCoord = [Math.floor(1.0), Math.floor(0.0)]
         var vertex6 = new Vertex(50,50, 50);
-        vertex6.texCoord = [1.0, 1.0]
+        //vertex6.texCoord = [Math.floor(1.0), Math.floor(1.0)]
         
 
         //adding front face of Sky vertices
@@ -47,17 +47,17 @@ class Sky extends Geometry {
 
         //top face of Sky with the bottom half of the texture 
         var vertex7  = new Vertex(-50, 50, 50);
-        vertex7.texCoord = [0.0, 0.0]
+        //vertex7.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex8  = new Vertex(50, 50, -50);
-        vertex8.texCoord = [1.0, 1.0]
+        //vertex8.texCoord = [Math.floor(1.0), Math.floor(1.0)]
         var vertex9  = new Vertex(-50, 50, -50);
-        vertex9.texCoord = [0.0, 1.0]
+        //vertex9.texCoord = [Math.floor(0.0), Math.floor(1.0)]
         var vertex10 = new Vertex(-50, 50, 50);
-        vertex10.texCoord = [0.0, 0.0]
+        //vertex10.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex11 = new Vertex(50,50, 50);
-        vertex11.texCoord = [1.0, 0.0]
+        //vertex11.texCoord = [Math.floor(1.0), Math.floor(0.0)]
         var vertex12 = new Vertex(50,50,-50);
-        vertex12.texCoord = [1.0, 1.0]
+        //vertex12.texCoord = [Math.floor(1.0), Math.floor(1.0)]
 
         //adding top face of Sky vertices
         vertices.push(vertex7);
@@ -69,17 +69,17 @@ class Sky extends Geometry {
 
         //back face of Sky with the two images 
         var vertex13 = new Vertex(-50,-50,-50);
-        vertex13.texCoord = [0.0, 0.0]
+        //vertex13.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex14 = new Vertex(50,50,-50);
-        vertex14.texCoord = [1.0, 1.0]
+        //vertex14.texCoord = [Math.floor(1.0), Math.floor(1.0)]
         var vertex15 = new Vertex(-50,50,-50);
-        vertex15.texCoord = [0.0, 1.0]
+        //vertex15.texCoord = [Math.floor(0.0), Math.floor(1.0)]
         var vertex16 = new Vertex(-50,-50,-50);
-        vertex16.texCoord = [0.0, 0.0]
+        //vertex16.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex17 = new Vertex(50,-50,-50);
-        vertex17.texCoord = [1.0, 0.0]
+        //vertex17.texCoord = [Math.floor(1.0), Math.floor(0.0)]
         var vertex18 = new Vertex(50,50,-50);
-        vertex18.texCoord = [1.0, 1.0]
+        //vertex18.texCoord = [Math.floor(1.0), Math.floor(1.0)]
 
         //adding back face of Sky vertices
         vertices.push(vertex13);
@@ -91,17 +91,17 @@ class Sky extends Geometry {
 
         // bottom face of vertices with half the image on the Sky
         var vertex19 = new Vertex(-50,-50, 50);
-        vertex19.texCoord = [0.0, 1.0]
+        //vertex19.texCoord = [Math.floor(0.0), Math.floor(1.0)]
         var vertex20 = new Vertex(50, -50, 50);
-        vertex20.texCoord = [1.0, 1.0]
+        //vertex20.texCoord = [Math.floor(1.0), Math.floor(1.0)]
         var vertex21 = new Vertex(-50, -50, -50);
-        vertex21.texCoord = [0.0, 0.0]
+        //vertex21.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex22 = new Vertex(-50, -50, -50);
-        vertex22.texCoord = [0.0, 0.0]
+        //vertex22.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex23 = new Vertex(50, -50, 50);
-        vertex23.texCoord = [1.0, 1.0]
+        //vertex23.texCoord = [Math.floor(1.0), Math.floor(1.0)]
         var vertex24 = new Vertex(50, -50, -50);
-        vertex24.texCoord = [1.0, 0.0]
+        //vertex24.texCoord = [Math.floor(1.0), Math.floor(0.0)]
 
         //bottom face of Sky vertices being added
         vertices.push(vertex19);
@@ -113,17 +113,17 @@ class Sky extends Geometry {
 
         //left facing Sky has the image three times in a 3x3 table
         var vertex50 = new Vertex(-50, -50, 50);
-        vertex50.texCoord = [0.0, 0.0]
+        //vertex50.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex26 = new Vertex(-50, 50, 50);
-        vertex26.texCoord = [0.0, 1.0]
+        //vertex26.texCoord = [Math.floor(0.0), Math.floor(1.0)]
         var vertex27 = new Vertex(-50, 50, -50);
-        vertex27.texCoord = [1.0, 1.0]
+        //vertex27.texCoord = [Math.floor(1.0), Math.floor(1.0)]
         var vertex28 = new Vertex(-50, -50, 50);
-        vertex28.texCoord = [0.0, 0.0]
+        //vertex28.texCoord = [Math.floor(0.0), Math.floor(0.0)]
         var vertex29 = new Vertex(-50, -50, -50);
-        vertex29.texCoord = [1.0, 0.0]
+        //vertex29.texCoord = [Math.floor(1.0), Math.floor(0.0)]
         var vertex30 = new Vertex(-50, 50, -50);
-        vertex30.texCoord = [1.0, 1.0]
+        //vertex30.texCoord = [Math.floor(1.0), Math.floor(1.0)]
 
         //adding left face of Sky vertices 
         vertices.push(vertex50);
@@ -135,17 +135,17 @@ class Sky extends Geometry {
 
         //Right face has 4 faces on it a 2x2 table
         var vertex31 = new Vertex(50, -50, 50);
-        vertex31.texCoord = [0.0,0.0]
+        //vertex31.texCoord = [Math.floor(0.0),Math.floor(0.0)]
         var vertex32 = new Vertex(50, 50, 50);
-        vertex32.texCoord = [0.0, 1.0] 
+        //vertex32.texCoord = [Math.floor(0.0), Math.floor(1.0)] 
         var vertex33 = new Vertex(50, 50, -50);
-        vertex33.texCoord = [1.0, 1.0]
+        //vertex33.texCoord = [Math.floor(1.0), Math.floor(1.0)]
         var vertex34 = new Vertex(50, -50, 50);
-        vertex34.texCoord = [0.0,0.0]
+        //vertex34.texCoord = [Math.floor(0.0),Math.floor(0.0)]
         var vertex35 = new Vertex(50, -50, -50);
-        vertex35.texCoord = [1.0, 0.0]
+        //vertex35.texCoord = [Math.floor(1.0), Math.floor(0.0)]
         var vertex36 = new Vertex(50, 50, -50);
-        vertex36.texCoord = [1.0, 1.0]
+        //vertex36.texCoord = [Math.floor(1.0), Math.floor(1.0)]
 
         //adding right face of vertices
         vertices.push(vertex31);

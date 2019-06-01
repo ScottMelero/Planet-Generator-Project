@@ -18,7 +18,7 @@ class Sphere extends Geometry {
         // CALL THIS AT THE END OF ANY SHAPE CONSTRUCTOR
         this.interleaveVertices();
     }
-  
+    
     generateSphereVertices(segments, g_points) {
         var outerVerts = [];
   
