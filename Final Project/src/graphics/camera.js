@@ -19,6 +19,8 @@ class Camera {
          this.center  = new Vector3([0, 0,-1]);
          this.up      = new Vector3([0, 1, 0]);
  
+         this.eyeForFog = new Vector4([0, 0, 0, 1])
+
          //counter for ortho/persepctive 
          this.counter = 0; 
  
@@ -206,6 +208,14 @@ class Camera {
          this.viewMatrix.setLookAt(this.eye.elements[0], this.eye.elements[1], this.eye.elements[2],
                                    this.center.elements[0], this.center.elements[1], this.center.elements[2],
                                    this.up.elements[0], this.up.elements[1], this.up.elements[2]);
+
+        for(var i = 0; i < 3; i++){
+        this.eyeForFog.elements[i] = this.eye.elements[i]
+        }
+        this.eyeForFog[3] = 1.0   
+    
      }
+
+     
  }
  

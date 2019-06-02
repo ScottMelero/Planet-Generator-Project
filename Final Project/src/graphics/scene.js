@@ -14,6 +14,7 @@ class Scene {
   constructor() {
     this.geometries = []; // Geometries being drawn on canvas
     this.light = null;
+    this.fog = null;
   }
 
   /**
@@ -27,6 +28,10 @@ class Scene {
 
   setLight(light) {
     this.light = light;
+ }
+
+ addFog(fog){
+   this.fog = fog
  }
 
 

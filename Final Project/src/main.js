@@ -17,29 +17,6 @@ function main() {
     return;
   }
 
-//   function createOffscreenCanvas(){
-//     // here we create an OFFSCREEN canvas
-//     var offscreenCanvas = document.getElementById('offcanvas');
-//     var context = _inputHandler;
-    
-//     // draw something into the OFFSCREEN context
-//     context.drawWorld()
-// }  
-
-// function copyIntoOnscreenCanvas(offscreenCanvas){
-//   var onscreenContext = document.getElementById('webgl')._inputHandler;
-//   var offscreenContext = offscreenCanvas._inputHandler;
-
-//   // cut the drawn rectangle
-//   var img = offscreenCanvas.getImageData(scene, inputHandler, shader, shader2); 
-//   // copy into visual canvas at different position
-//   onscreenContext.putImageData(img, 0, 0);
-
-//   //requestAnimationFrame(render);
-// }
-
-// copyIntoOnscreenCanvas(createOffscreenCanvas());
-
   // pointer lock object forking for cross browser
   canvas.requestPointerLock = canvas.requestPointerLock ||
   canvas.mozRequestPointerLock;
@@ -90,8 +67,6 @@ function main() {
   
   resize(canvas, hud); 
 
-  //copyToOnScreen(createOffscreenCanvas());
-
   // Retrieve WebGL rendering context
   var gl = getWebGLContext(canvas);
   var ctx = hud.getContext('2d');
@@ -100,69 +75,77 @@ function main() {
     return;
   }
 
-  //var light = new Light(Math.floor(1),Math.floor(1),Math.floor(1));
+  var light = new Light(60, 1, 60);
+  var fog = new Fog(0.5, 0.5, 0.5, 1, 50)
 
   // Initialize the scene
   var scene = new Scene();
   var camera = new Camera();
-  //scene.setLight(light);
+  scene.setLight(light);
+  scene.addFog(fog)
 
-  var inputHandler = new InputHandler(canvas, scene, camera);
+  var inputHandler = new InputHandler(canvas, scene, camera, hud, fog);
 
-  // Initialize shader
-  shader = new Shader(gl, ASG4_VSHADER, ASG4_FSHADER);
+ // Initialize shader
+ shader = new Shader(gl, ASG4_VSHADER, ASG4_FSHADER);
 
-  // Add attibutes
-  shader.addAttribute("a_Position");
-  shader.addAttribute("a_Normal");
-  shader.addAttribute("a_TexCoord");
+ // Add attibutes
+ shader.addAttribute("a_Position");
+ shader.addAttribute("a_Normal");
+ shader.addAttribute("a_TexCoord");
 
-  shader.addUniform("u_Sampler", "sampler2D", new Matrix4().elements);
-  shader.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
-  shader.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
-  shader.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
-  shader.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
+ shader.addUniform("u_Sampler", "sampler2D", new Matrix4().elements);
+ shader.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
+ shader.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+ shader.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
+ shader.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
 
-  shader.addUniform("u_LightPosition", "vec3", new Vector3().elements);
-  shader.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
-  shader.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
-  shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+ shader.addUniform("u_LightPosition", "vec3", new Vector3().elements);
+ shader.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
+ shader.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
+ shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
 
-  shader.addUniform("Ka", "float", 1)
-  shader.addUniform("Kd", "float", 0)
-  shader.addUniform("Ks", "float", 1)
-  shader.addUniform("shininessVal", "float", 1)
+ shader.addUniform("Ka", "float", 1.0)
+ shader.addUniform("Kd", "float", 1.0)
+ shader.addUniform("Ks", "float", 1.0)
+ shader.addUniform("shininessVal", "float", 80.0)
+
+ shader.addUniform("u_Eye", "vec4", new Vector4().elements)
+ shader.addUniform("u_FogColor", "vec3", new Vector3().elements)
+ shader.addUniform("u_FogDist", "vec2", [1,1])
+
 
   //sets the view
   camera.setDistance()
 
-  // // Initialize shader
-  // shader2 = new Shader(gl, ASG5_VSHADER, ASG5_FSHADER);
+  // Initialize shader
+shader2 = new Shader(gl, ASG5_VSHADER, ASG5_FSHADER);
 
-  // // Add attibutes
-  // shader2.addAttribute("a_Position");
-  // shader2.addAttribute("a_Color");
-  // shader2.addAttribute("a_Normal");
+// Add attibutes
+shader2.addAttribute("a_Position");
+shader2.addAttribute("a_Color");
+shader2.addAttribute("a_Normal");
 
-  // shader2.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
-  // shader2.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
-  // shader2.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
-  // shader2.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+shader2.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
+shader2.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
+shader2.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
+shader2.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
 
-  // shader2.addUniform("u_LightPosition", "vec3", new Vector3().elements);
-  // shader2.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
-  // shader2.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
-  // shader2.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+shader2.addUniform("u_LightPosition", "vec3", new Vector3().elements);
+shader2.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
+shader2.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
+shader2.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+shader2.addUniform("u_Eye", "vec4", new Vector4().elements)
 
-  // shader2.addUniform("Ka", "float", 0)
-  // shader2.addUniform("Kd", "float", 1)
-  // shader2.addUniform("Ks", "float", 2)
-  // shader2.addUniform("shininessVal", "float", 90)
+shader2.addUniform("u_FogColor", "vec3", new Vector3().elements)
+shader2.addUniform("u_FogDist", "vec2", [1,1])
+
+shader2.addUniform("Ka", "float", 1.0)
+shader2.addUniform("Kd", "float", 1.0)
+shader2.addUniform("Ks", "float", 1.0)
+shader2.addUniform("shininessVal", "float", 80.0)
 
   drawWorld(scene, inputHandler, shader, shader)
-  
-  
-
 
   // Initialize renderer with scene and camera
   renderer = new Renderer(gl, scene, camera);
@@ -171,19 +154,17 @@ function main() {
   draw2D(ctx)
   }
 
-  
-
-function draw2D(ctx) {
-  ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
-  ctx.font = '18px "Times New Roman"';
-  ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
-  ctx.fillText('HUD: Head Up Display', 10, canvas.height-60); 
-  ctx.fillText('Im booutta fuckin uuuuhhhh...', 10, canvas.height-35); 
-  ctx.fillText('dab on them.', 10, canvas.height-10); 
-}
+  function draw2D(ctx) {
+    ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
+    ctx.font = '18px "Times New Roman"';
+    ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
+    ctx.fillText('HUD: Head Up Display', 10, canvas.height-60); 
+    ctx.fillText('Im booutta fuckin uuuuhhhh...', 10, canvas.height-35); 
+    ctx.fillText('give it to em', 10, canvas.height-10); 
+  }
 
 
-  function drawWorld(scene, inputHandler, shader, shader){
+  function drawWorld(scene, inputHandler, shader, shader2){
     // //draws the map
     // var map = [
     //   [0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0],
@@ -243,12 +224,12 @@ function draw2D(ctx) {
    })
 
     
-    var PlanetOne = new Sphere(shader, 5, [-50, 25, 50]);
+    var PlanetOne = new Sphere(shader2, 5, [-50, 25, 50]);
     scene.addGeometry(PlanetOne);
 
-    var PlanetTwo = new Sphere(shader, 5, [0, 30, 25]);
+    var PlanetTwo = new Sphere(shader2, 5, [0, 30, 25]);
     scene.addGeometry(PlanetTwo);
 
-    var PlanetThree = new Sphere(shader, 5, [50, 25, 50]);
+    var PlanetThree = new Sphere(shader2, 5, [50, 25, 50]);
     scene.addGeometry(PlanetThree)
 }

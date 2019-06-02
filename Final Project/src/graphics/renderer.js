@@ -21,6 +21,9 @@ class Renderer {
 
         this.textures = {};
 
+        this.rotationMatrix = new Matrix4()
+        this.rotationMatrix.setRotate(.0001,1,1,0)
+
         this.initGLSLBuffers();
 
         // Setting canvas' clear color
@@ -28,13 +31,6 @@ class Renderer {
 
         // Use the z-buffer when drawing
         this.gl.enable(gl.DEPTH_TEST);
-        
-        var geometry = this.scene.geometries[0];
-
-        // this.gl.useProgram(geometry.shader.program)
-        // this.gl.program = geometry.shader.program
-
-      
 
         _renderer = this;
     }
@@ -58,14 +54,20 @@ class Renderer {
             var geometry = this.scene.geometries[i];
 
             // Switch to shader attached to geometry
-            // this.gl.useProgram(geometry.shader.program)
-            // this.gl.program = geometry.shader.program
+            this.gl.useProgram(geometry.shader.program)
+            this.gl.program = geometry.shader.program
 
             if(this.scene.light != null) {
-              geometry.shader.setUniform("u_LightPos", this.scene.light.pos.elements);
+              this.scene.light.pos = this.rotationMatrix.multiplyVector3(this.scene.light.pos)
+              geometry.shader.setUniform("u_LightPosition", this.scene.light.pos.elements);
               geometry.shader.setUniform("u_AmbientColor", this.scene.light.ambient);
               geometry.shader.setUniform("u_DiffuseColor", this.scene.light.diffuse);
               geometry.shader.setUniform("u_SpecularColor", this.scene.light.specular);
+          }
+          if(this.scene.fog != null){
+            geometry.shader.setUniform("u_Eye", this.camera.eyeForFog.elements)
+            geometry.shader.setUniform("u_FogColor", this.scene.fog.color.elements)
+            geometry.shader.setUniform("u_FogDist", this.scene.fog.distance)
           }
 
             geometry.shader.setUniform("u_ViewMatrix", this.camera.viewMatrix.elements);
