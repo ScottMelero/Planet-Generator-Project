@@ -34,7 +34,6 @@ class Scene {
    this.fog = fog
  }
 
-
   /**
    * Clears all the geometry within the scene.
    */
