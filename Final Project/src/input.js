@@ -23,21 +23,9 @@ class InputHandler {
       this.canvas.onmouseover = function(ev) { _inputHandler.mouseMove(ev) };
       this.canvas.addEventListener('wheel', function(ev) { _inputHandler.mouseZoom(ev)}, false)
 
-      //this.canvas.onmouseclick = function(ev) { _inputHandler.playAudio(ev) };
-
-      //shape buttons 
-    //   document.getElementById("Planet 1").onclick = function(){ _inputHandler.alert1();}
-    //   document.getElementById("Planet 2").onclick = function(){ _inputHandler.alert2();}
-    //   document.getElementById("Planet 3").onclick = function(){ _inputHandler.alert3();}
-
       // Keyboard Events
       document.addEventListener('keydown', function(ev) { _inputHandler.keyDown(ev); }, false);
     }
-
-    // playAudio(){
-    //     var audio = document.getElementById("audio");
-    //     audio.play();
-    //               }
 
     mouseMove(ev) {
         var movementX = ev.movementX;

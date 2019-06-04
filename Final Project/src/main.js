@@ -111,32 +111,32 @@ function main() {
   //sets the view
   camera.setDistance()
   
-// Initialize shader
-shader2 = new Shader(gl, ASG5_VSHADER, ASG5_FSHADER);
+  // Initialize shader
+  shader2 = new Shader(gl, ASG5_VSHADER, ASG5_FSHADER);
 
- // Add attibutes
- shader2.addAttribute("a_Position");
- shader2.addAttribute("a_Color");
- shader2.addAttribute("a_Normal");
+  // Add attibutes
+  shader2.addAttribute("a_Position");
+  shader2.addAttribute("a_Color");
+  shader2.addAttribute("a_Normal");
 
- shader2.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
- shader2.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
- shader2.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
- shader2.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+  shader2.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
+  shader2.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
+  shader2.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
+  shader2.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
 
- shader2.addUniform("u_LightPosition", "vec3", new Vector3().elements);
- shader2.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
- shader2.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
- shader2.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
- shader2.addUniform("u_Eye", "vec4", new Vector4().elements)
+  shader2.addUniform("u_LightPosition", "vec3", new Vector3().elements);
+  shader2.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
+  shader2.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
+  shader2.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+  shader2.addUniform("u_Eye", "vec4", new Vector4().elements)
 
- shader2.addUniform("u_FogColor", "vec3", new Vector3().elements)
- shader2.addUniform("u_FogDist", "vec2", [1,1])
+  shader2.addUniform("u_FogColor", "vec3", new Vector3().elements)
+  shader2.addUniform("u_FogDist", "vec2", [1,1])
 
- shader2.addUniform("Ka", "float", 1.0)
- shader2.addUniform("Kd", "float", 1.0)
- shader2.addUniform("Ks", "float", 1.0)
- shader2.addUniform("shininessVal", "float", 80.0)
+  shader2.addUniform("Ka", "float", 1.0)
+  shader2.addUniform("Kd", "float", 1.0)
+  shader2.addUniform("Ks", "float", 1.0)
+  shader2.addUniform("shininessVal", "float", 80.0)
 
   // Initialize shader
   shader3 = new Shader(gl, ASG3_VSHADER, ASG3_FSHADER);
@@ -178,7 +178,6 @@ shader2 = new Shader(gl, ASG5_VSHADER, ASG5_FSHADER);
     ctx.fillText('Im booutta fuckin uuuuhhhh...', 10, canvas.height-35); 
     ctx.fillText('give it to em', 10, canvas.height-10); 
   }
-
 
   function drawWorld(scene, inputHandler, shader, shader2, shader3){
 
@@ -277,24 +276,27 @@ shader2 = new Shader(gl, ASG5_VSHADER, ASG5_FSHADER);
       scene.addGeometry(shape)
     })
 
+  /*
+  Draws the planets 
+  */
   //creates planet 1
   inputHandler.readTexture("objs/dirt.jpg", function(image) 
-    {
-      var shape = new Cube(shader3, image, 5, -50, 25, 50)
-      scene.addGeometry(shape)
-    })
+  {
+    var shape = new Cube(shader3, image, 2, -30, 25, 30)
+    scene.addGeometry(shape)
+  })
 
   //creates planet 2
   inputHandler.readTexture("objs/dirt.jpg", function(image) 
     {
-      var shape = new Cube(shader3, image, 5, 0, 30, 25)
+      var shape = new Cube(shader3, image, 3, 0, 30, -30)
       scene.addGeometry(shape)
     })
 
   //creates planet 3
   inputHandler.readTexture("objs/dirt.jpg", function(image) 
     {
-      var shape = new Cube(shader3, image, 5, 50, 25, 50)
+      var shape = new Cube(shader3, image, 2, 30, 35, 15)
       scene.addGeometry(shape)
     })
 
