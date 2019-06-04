@@ -32,18 +32,13 @@ function main() {
 
   function lockChangeAlert() 
     {
-    if (document.pointerLockElement === canvas || document.mozPointerLockElement === canvas)
-      {
-        console.log('The pointer lock status is now locked');
-        document.addEventListener("mousemove", updatePosition, false);
-      } 
-      else 
-      {
-        console.log('The pointer lock status is now unlocked');  
-        document.removeEventListener("mousemove", updatePosition, false);
-      }
+      if (document.pointerLockElement === canvas || document.mozPointerLockElement === canvas)
+        { console.log('The pointer lock status is now locked'); }  
+        else 
+        { console.log('The pointer lock status is now unlocked'); }
     }
 
+    
   // Resizes the canvas to fit the viewport 
   function resize(canvas, hud) {
     // Lookup the size the browser is displaying the canvas.
@@ -58,6 +53,7 @@ function main() {
       canvas.width  = displayWidth;
       canvas.height = displayHeight;
 
+      // set the HUD canvas to display width
       hud.width = canvas.width;
       hud.height = canvas.height;
     }
@@ -84,66 +80,88 @@ function main() {
 
   var inputHandler = new InputHandler(canvas, scene, camera, hud, fog);
 
- // Initialize shader
- shader = new Shader(gl, ASG4_VSHADER, ASG4_FSHADER);
+  // Initialize shader
+  shader = new Shader(gl, ASG4_VSHADER, ASG4_FSHADER);
 
- // Add attibutes
- shader.addAttribute("a_Position");
- shader.addAttribute("a_Normal");
- shader.addAttribute("a_TexCoord");
+  // Add attibutes
+  shader.addAttribute("a_Position");
+  shader.addAttribute("a_Normal");
+  shader.addAttribute("a_TexCoord");
 
- shader.addUniform("u_Sampler", "sampler2D", new Matrix4().elements);
- shader.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
- shader.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
- shader.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
- shader.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
+  shader.addUniform("u_Sampler", "sampler2D", new Matrix4().elements);
+  shader.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
+  shader.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+  shader.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
+  shader.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
 
- shader.addUniform("u_LightPosition", "vec3", new Vector3().elements);
- shader.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
- shader.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
- shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+  shader.addUniform("u_LightPosition", "vec3", new Vector3().elements);
+  shader.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
+  shader.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
+  shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
 
- shader.addUniform("Ka", "float", 1.0)
- shader.addUniform("Kd", "float", 1.0)
- shader.addUniform("Ks", "float", 1.0)
- shader.addUniform("shininessVal", "float", 80.0)
+  shader.addUniform("Ka", "float", 1.0)
+  shader.addUniform("Kd", "float", 1.0)
+  shader.addUniform("Ks", "float", 1.0)
+  shader.addUniform("shininessVal", "float", 80.0)
 
- shader.addUniform("u_Eye", "vec4", new Vector4().elements)
- shader.addUniform("u_FogColor", "vec3", new Vector3().elements)
- shader.addUniform("u_FogDist", "vec2", [1,1])
-
+  shader.addUniform("u_Eye", "vec4", new Vector4().elements)
+  shader.addUniform("u_FogColor", "vec3", new Vector3().elements)
+  shader.addUniform("u_FogDist", "vec2", [1,1])
 
   //sets the view
   camera.setDistance()
-
-  // Initialize shader
+  
+// Initialize shader
 shader2 = new Shader(gl, ASG5_VSHADER, ASG5_FSHADER);
 
-// Add attibutes
-shader2.addAttribute("a_Position");
-shader2.addAttribute("a_Color");
-shader2.addAttribute("a_Normal");
+ // Add attibutes
+ shader2.addAttribute("a_Position");
+ shader2.addAttribute("a_Color");
+ shader2.addAttribute("a_Normal");
 
-shader2.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
-shader2.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
-shader2.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
-shader2.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+ shader2.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
+ shader2.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
+ shader2.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
+ shader2.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
 
-shader2.addUniform("u_LightPosition", "vec3", new Vector3().elements);
-shader2.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
-shader2.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
-shader2.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
-shader2.addUniform("u_Eye", "vec4", new Vector4().elements)
+ shader2.addUniform("u_LightPosition", "vec3", new Vector3().elements);
+ shader2.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
+ shader2.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
+ shader2.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+ shader2.addUniform("u_Eye", "vec4", new Vector4().elements)
 
-shader2.addUniform("u_FogColor", "vec3", new Vector3().elements)
-shader2.addUniform("u_FogDist", "vec2", [1,1])
+ shader2.addUniform("u_FogColor", "vec3", new Vector3().elements)
+ shader2.addUniform("u_FogDist", "vec2", [1,1])
 
-shader2.addUniform("Ka", "float", 1.0)
-shader2.addUniform("Kd", "float", 1.0)
-shader2.addUniform("Ks", "float", 1.0)
-shader2.addUniform("shininessVal", "float", 80.0)
+ shader2.addUniform("Ka", "float", 1.0)
+ shader2.addUniform("Kd", "float", 1.0)
+ shader2.addUniform("Ks", "float", 1.0)
+ shader2.addUniform("shininessVal", "float", 80.0)
 
-  drawWorld(scene, inputHandler, shader, shader)
+  // Initialize shader
+  shader3 = new Shader(gl, ASG3_VSHADER, ASG3_FSHADER);
+
+  // Add attibutes
+  shader3.addAttribute("a_Position");
+  shader3.addAttribute("a_Color");
+  shader3.addAttribute("a_TexCoord");
+  shader3.addAttribute("a_Normal");
+
+  // Add uinforms
+  shader3.addUniform("u_ModelMatrix", "mat4", new Matrix4().elements);
+  shader3.addUniform("u_ViewMatrix", "mat4", new Matrix4().elements);
+  shader3.addUniform("u_ProjectionMatrix", "mat4", new Matrix4().elements);
+  shader3.addUniform("u_NormalMatrix", "mat4", new Matrix4().elements);
+
+  // Add uniforms for phong shader
+  shader3.addUniform("u_LightPosition", "vec3", new Vector3().elements);
+  shader3.addUniform("u_LightColor", "vec3", new Vector3().elements);
+  shader3.addUniform("u_AmbientColor", "vec3", new Vector3().elements);
+  shader3.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
+  shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
+
+
+  drawWorld(scene, inputHandler, shader, shader2, shader3)
 
   // Initialize renderer with scene and camera
   renderer = new Renderer(gl, scene, camera);
@@ -162,65 +180,96 @@ shader2.addUniform("shininessVal", "float", 80.0)
   }
 
 
-  function drawWorld(scene, inputHandler, shader, shader2){
-    //draws the map
+  function drawWorld(scene, inputHandler, shader, shader2, shader3){
+
+    function P(max) 
+    { return Math.floor(Math.random() * Math.floor(max)) + 1 ; }
+
+    // //draws the map
     var map = [
+      // [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      // [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]]  
+      
+      [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0],
+      [0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
       [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]  
+      [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1]] 
 
     for(var i = 0; i < map.length; i++){
       for(var j = 0; j < map[i].length; j++){
-        if(map[i][j]!=0){
+        if(map[i][j]==1){
+          var y = P(6);
           var image = document.getElementById('wallSpace')
-          var shape = new Cube(shader, [-12+i*5, -1, -12+j*20], map[i][j], 1, image)
+          var shape = new Cube(shader, [-30+i*2, -y, -30+j*2], map[i][j], 3, image)
+          scene.addGeometry(shape)
+        } 
+        else if(map[i][j]==2){
+          var y = P(4)
+          var image = document.getElementById('wallSpace')
+          var shape = new Cube(shader, [-30+i*2, -y, -30+j*2], map[i][j], 3, image)
           scene.addGeometry(shape)
         }
       }
     }
 
-    //create square and add it 
-   inputHandler.readTexture("objs/darkBlueSky.jpg", function(image) {
-      var square = new Square(shader, image)
-      scene.addGeometry(square)
-   })
-
-    //creates the sky
-   inputHandler.readTexture("objs/pinkSky.jpg", function(image) {
-      var shape = new Sky(shader, image)
-      scene.addGeometry(shape)
-   })
-
-    
     var PlanetOne = new Sphere(shader2, 5, [-50, 25, 50]);
     scene.addGeometry(PlanetOne);
 
@@ -229,4 +278,19 @@ shader2.addUniform("shininessVal", "float", 80.0)
 
     var PlanetThree = new Sphere(shader2, 5, [50, 25, 50]);
     scene.addGeometry(PlanetThree)
+
+    //creates the sky
+   inputHandler.readTexture("objs/stars.png", function(image) {
+    var shape = new Sky(shader3, image)
+    scene.addGeometry(shape)
+ })
+
+ //create square and add it 
+ inputHandler.readTexture("objs/darkBlueSky.jpg", function(image) {
+    var square = new Square(shader, image)
+    scene.addGeometry(square)
+ })
+ 
 }
+
+  
