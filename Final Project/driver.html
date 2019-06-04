@@ -2,7 +2,15 @@
   <head>
       <meta charset="utf-8"/>
       <title> Final Project </title>
-      <img id="wallSpace" src="objs/wallSpace.jpg" width="0"height="0"></img>
+      <img id="Green" src="objs/P1_F.jpg" width="0"height="0"></img>
+      <img id="Grass" src="objs/P1_T.png" width="0"height="0"></img>
+
+      <img id="Blue" src="objs/P2_F.jpg" width="0"height="0"></img>
+      <img id="Ice" src="objs/P2_T.jpg" width="0"height="0"></img>
+
+      <img id="Red" src="objs/P3_F.jpg" width="0"height="0"></img>
+      <img id="Lava" src="objs/P3_T.png" width="0"height="0"></img>
+
   </head>
 
   <body onload = "main()">
@@ -18,9 +26,9 @@
 
     <input type="button" id="ForestPlanet" style="z-index:2; position:absolute; top:x; left:y" value="Forest planet" onclick="SelectForest()"/>
     <br></br>
-    <input type="button" id="IcePlanet" style="z-index:2; position:absolute; top:x; left:y" value="Ice planet" onclick="main()"/>
+    <input type="button" id="IcePlanet" style="z-index:2; position:absolute; top:x; left:y" value="Ice planet" onclick="SelectIce()"/>
     <br></br>
-    <input type="button" id="FirePlanet" style="z-index:2; position:absolute; top:x; left:y" value="Fire planet" onclick="main ()"/>
+    <input type="button" id="FirePlanet" style="z-index:2; position:absolute; top:x; left:y" value="Fire planet" onclick="SelectFire()"/>
 
     <!-- Include external libs -->
     <script src = "lib/webgl-utils.js"></script>

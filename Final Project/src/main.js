@@ -1,5 +1,8 @@
 var setting = 0; 
 
+/*
+* Functions to select world terrain. 
+*/
 //var shader = null;
 function SelectForest()
 {
@@ -178,6 +181,21 @@ function main() {
 
     if(setting != 0)
     {
+
+      var floor;
+      var terra;
+
+      if(setting == 1){
+        floor = document.getElementById('Green')
+        terra = document.getElementById('Grass')
+      } else if (setting == 2){
+        floor = document.getElementById('Blue')
+        terra = document.getElementById('Ice')
+      } else if (setting == 3){
+        floor = document.getElementById('Red')
+        terra = document.getElementById('Lava')
+      }
+
       //draws the map
       var map = [ 
         [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1],
@@ -217,18 +235,23 @@ function main() {
         for(var j = 0; j < map[i].length; j++){
           if(map[i][j]==1){
             var y = P(6);
-            var image = document.getElementById('wallSpace')
+            var image = terra;
             var shape = new Terrain(shader, [-30+i*2, -y, -30+j*2], map[i][j], 3, image)
             scene.addGeometry(shape)
           } 
           else if(map[i][j]==2){
             var y = P(4)
-            var image = document.getElementById('wallSpace')
+            var image = terra;
             var shape = new Terrain(shader, [-30+i*2, -y, -30+j*2], map[i][j], 3, image)
             scene.addGeometry(shape)
           }
         }
       }
+
+      //creates floor 
+        var image = floor;
+        var square = new Square(shader, image)
+        scene.addGeometry(square)
   }
 
   //creates the sky
@@ -242,33 +265,23 @@ function main() {
   Draws the planets 
   */
   //creates planet 1
-  inputHandler.readTexture("objs/dirt.jpg", function(image) 
-  {
-    var shape = new Cube(shader3, image, 2, -30, 25, 30)
-    scene.addGeometry(shape)
-  })
-
+  inputHandler.readTexture("objs/P1_P.png", function(image) 
+    {
+      var shape = new Cube(shader3, image, 2, -30, 25, 30)
+      scene.addGeometry(shape)
+    })
   //creates planet 2
-  inputHandler.readTexture("objs/dirt.jpg", function(image) 
+  inputHandler.readTexture("objs/P2_P.jpg", function(image) 
     {
       var shape = new Cube(shader3, image, 3, 0, 30, -30)
       scene.addGeometry(shape)
     })
-
   //creates planet 3
-  inputHandler.readTexture("objs/dirt.jpg", function(image) 
+  inputHandler.readTexture("objs/P3_P.jpg", function(image) 
     {
       var shape = new Cube(shader3, image, 2, 30, 35, 15)
       scene.addGeometry(shape)
     })
-
-  //creates floor 
-  inputHandler.readTexture("objs/darkBlueSky.jpg", function(image) 
-    {
-      var square = new Square(shader, image)
-      scene.addGeometry(square)
-    })
- 
 }
 
   
