@@ -15,8 +15,8 @@ class Camera {
          this.speed = 0.1;
  
          // Camera view attributes
-         this.eye     = new Vector3([0, 0, 1]);
-         this.center  = new Vector3([0, 0,-1]);
+         this.eye     = new Vector3([0, 10, 1]);
+         this.center  = new Vector3([-1, 0, 15]);
          this.up      = new Vector3([0, 1, 0]);
  
          this.eyeForFog = new Vector4([0, 0, 0, 1])
