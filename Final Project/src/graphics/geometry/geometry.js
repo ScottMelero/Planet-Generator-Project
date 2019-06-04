@@ -29,10 +29,6 @@ class Geometry {
   render() {
 
     // Transform geometry here!
-    //this.normalMatrix.setInverseOf(this.modelMatrix);
-    //this.normalMatrix.transpose();
-
-    //this.shader.setUniform("u_ModelMatrix", this.modelMatrix.elements);
     this.shader.setUniform("u_NormalMatrix", this.normalMatrix.elements);
 
   }

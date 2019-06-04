@@ -167,14 +167,17 @@ function main() {
 
   function draw2D(ctx) {
     ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
-    ctx.font = '18px "Times New Roman"';
+    ctx.font = '18px "Impact"';
     ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
-    ctx.fillText('- Move with W A S D', 5, canvas.height-350); 
-    ctx.fillText('- Click on the buttons to ', 5, canvas.height-320); 
-    ctx.fillText('  generate the planet terrain', 5, canvas.height-295); 
+    ctx.fillText('- Move with W A S D', 5, canvas.height-60); 
+    ctx.fillText('- Click on the buttons to ', 5, canvas.height-35); 
+    ctx.fillText('  generate the planet terrain', 5, canvas.height-10); 
   }
 
   function drawWorld(ctx, setting, scene, inputHandler, shader, shader3){
+
+    var floor;
+    var terra;
 
     function P(max) 
     { return Math.floor(Math.random() * Math.floor(max)) + 1 ; }
@@ -182,20 +185,57 @@ function main() {
     if(setting != 0)
     {
 
-      var floor;
-      var terra;
-
       if(setting == 1){
         floor = document.getElementById('Green')
         terra = document.getElementById('Grass')
+
+        //creates planet 2
+        inputHandler.readTexture("objs/P2_P.jpg", function(image) 
+        {
+          var shape = new Cube(shader3, image, 3, 0, 30, -30)
+          scene.addGeometry(shape)
+        })
+        //creates planet 3
+        inputHandler.readTexture("objs/P3_P.jpg", function(image) 
+        {
+          var shape = new Cube(shader3, image, 2, 30, 35, 15)
+          scene.addGeometry(shape)
+        })
       } 
+
       else if (setting == 2){
         floor = document.getElementById('Blue')
         terra = document.getElementById('Ice')
+        //creates planet 1
+        inputHandler.readTexture("objs/P1_P.png", function(image) 
+          {
+            var shape = new Cube(shader3, image, 2, -30, 25, 30)
+            scene.addGeometry(shape)
+          })
+        //creates planet 3
+        inputHandler.readTexture("objs/P3_P.jpg", function(image) 
+          {
+            var shape = new Cube(shader3, image, 2, 30, 35, 15)
+            scene.addGeometry(shape)
+          })
       } 
+
       else if (setting == 3){
         floor = document.getElementById('Red')
         terra = document.getElementById('Lava')
+
+        //creates planet 1
+        inputHandler.readTexture("objs/P1_P.png", function(image) 
+          {
+            var shape = new Cube(shader3, image, 2, -30, 25, 30)
+            scene.addGeometry(shape)
+          })
+        //creates planet 2
+        inputHandler.readTexture("objs/P2_P.jpg", function(image) 
+          {
+            var shape = new Cube(shader3, image, 3, 0, 30, -30)
+            scene.addGeometry(shape)
+          })
       }
 
       //draws the map
@@ -252,17 +292,19 @@ function main() {
 
       //creates floor 
         var image = floor;
-        var square = new Square(shader, image)
+        var square = new Square(shader3, image)
         scene.addGeometry(square)
   }
 
   //creates the sky
   inputHandler.readTexture("objs/stars.png", function(image) 
     {
-      var shape = new Cube(shader3, image, 50, 0, 0, 0)
+      var shape = new Cube(shader3, image, 55, 0, 0, 0)
       scene.addGeometry(shape)
     })
 
+if(setting == 0)
+{
   /*
   Draws the planets 
   */
@@ -284,6 +326,7 @@ function main() {
       var shape = new Cube(shader3, image, 2, 30, 35, 15)
       scene.addGeometry(shape)
     })
+  }
 }
 
   

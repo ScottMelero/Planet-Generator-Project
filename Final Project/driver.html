@@ -12,24 +12,35 @@
       <img id="Lava" src="objs/P3_T.png" width="0"height="0"></img>
 
   </head>
-
   <body onload = "main()">
-    <br>
 
     <style>
       body { margin: 0; }
-      canvas { width: 100%; height: 100%; }
-    </style>
+      canvas { width: 100%; height: 100%;  border: 2px solid grey;}
+      .button {
+      font-family: "Impact";
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      margin: 0px 0px;
+      cursor: pointer;
+      width: 175px;
+      border-radius: 4px;
+      }
+      .button1 {background-color: #4CAF50;} /* Green */
+      .button2 {background-color: #008CBA;} /* Blue */
+      .button3 {background-color: #f44336;} /* Red */ 
+    </style>   
 
     <canvas id="webgl" style="position: absolute; z-index: 0"></canvas>
     <canvas id="hud" style="position: absolute; z-index: 1"></canvas>    
 
-    <input type="button" id="ForestPlanet" style="z-index:2; position:absolute; top:x; left:y" value="Forest planet" onclick="SelectForest()"/>
-    <br></br>
-    <input type="button" id="IcePlanet" style="z-index:2; position:absolute; top:x; left:y" value="Ice planet" onclick="SelectIce()"/>
-    <br></br>
-    <input type="button" id="FirePlanet" style="z-index:2; position:absolute; top:x; left:y" value="Fire planet" onclick="SelectFire()"/>
-
+    <input type="button" class="button button1" id="ForestPlanet" style="z-index:2; position:absolute; top:30px; left:10px" value="Forest planet" onclick="SelectForest()"/>
+    <input type="button" class="button button2" id="IcePlanet" style="z-index:2; position:absolute; top:85px; left:10px" value="Ice planet" onclick="SelectIce()"/>
+    <input type="button" class="button button3" id="FirePlanet" style="z-index:2; position:absolute; top:140; left:10px" value="Fire planet" onclick="SelectFire()"/>
+    
     <!-- Include external libs -->
     <script src = "lib/webgl-utils.js"></script>
     <script src = "lib/webgl-render.js"></script>
@@ -38,21 +49,18 @@
     <script src = "lib/cuon-utils.js"></script>
     <script src = "lib/cuon-matrix.js"></script>
     <script src = "lib/math.js"></script>
-
+   
     <!-- Include shaders -->
     <script src = "src/graphics/shaders/shader.js"></script>
-    <script src = "src/graphics/shaders/asg5.js"></script>
     <script src = "src/graphics/shaders/asg4.js"></script>
     <script src = "src/graphics/shaders/asg3.js"></script>
-
-
+   
     <!-- Include Base code -->
     <script src = "src/graphics/geometry/vertex.js"></script>
     <script src = "src/graphics/geometry/geometry.js"></script>
     <script src = "src/graphics/geometry/shapes/terrain.js"></script>
     <script src = "src/graphics/geometry/shapes/cube.js"></script>
     <script src = "src/graphics/geometry/shapes/square.js"></script>
-    <script src = "src/graphics/geometry/shapes/sphere.js"></script>
     <script src = "src/graphics/renderer.js"></script>
     <script src = "src/graphics/light.js"></script>
     <script src = "src/graphics/fog.js"></script>
