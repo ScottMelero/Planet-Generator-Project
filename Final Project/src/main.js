@@ -8,19 +8,41 @@ function SelectForest()
 {
   setting = 1;
   main()
+  var ctx1 = hud.getContext('2d');
+  ctx1.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
+  ctx1.font = '18px "Impact"';
+  ctx1.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
+  ctx1.fillText('Forest Planet:', 5, canvas.height-60); 
+  ctx1.fillText('A lush green planet.', 5, canvas.height-35); 
+  ctx1.fillText('Perfect for 420', 5, canvas.height-10);
 }
 
 function SelectIce()
 {
   setting = 2;
   main()
+  var ctx2 = hud.getContext('2d');
+  ctx2.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
+  ctx2.font = '18px "Impact"';
+  ctx2.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
+  ctx2.fillText('Ice Planet:', 5, canvas.height-60); 
+  ctx2.fillText('"What is cooler than being cool?"', 5, canvas.height-35); 
+  ctx2.fillText('"Ice cold." - Andre 3000', 5, canvas.height-10);
 }
 
 function SelectFire()
 {
   setting = 3;
   main()
+  var ctx3 = hud.getContext('2d');
+  ctx3.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
+  ctx3.font = '18px "Impact"';
+  ctx3.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
+  ctx3.fillText('Fire Planet:', 5, canvas.height-60); 
+  ctx3.fillText('Molten on the outside.', 5, canvas.height-35); 
+  ctx3.fillText('Rock solid on the inside.', 5, canvas.height-10);
 }
+
 
 function main() {
   // Retrieve the canvas from the HTML document
@@ -91,6 +113,7 @@ function main() {
     return;
   }
 
+  // Implement fog onto the planet terrains
   var light = new Light(60, 1, 60);
   var fog = new Fog(0.5, 0.5, 0.5, 1, 50)
 
@@ -155,145 +178,147 @@ function main() {
   shader3.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
   shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
 
-
   drawWorld(ctx, setting, scene, inputHandler, shader, shader3)
 
   // Initialize renderer with scene and camera
   renderer = new Renderer(gl, scene, camera);
   renderer.start();
-
+  
   draw2D(ctx)
-  }
+}
 
-  function draw2D(ctx) {
-    ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
-    ctx.font = '18px "Impact"';
-    ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
-    ctx.fillText('- Move with W A S D', 5, canvas.height-60); 
-    ctx.fillText('- Click on the buttons to ', 5, canvas.height-35); 
-    ctx.fillText('  generate the planet terrain', 5, canvas.height-10); 
-  }
+// Creates the starting hud
+function draw2D(ctx) {
+  ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
+  ctx.font = '18px "Impact"';
+  ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
+  ctx.fillText('- Move with W A S D', 5, canvas.height-85); 
+  ctx.fillText('- Click on the buttons ', 5, canvas.height-60); 
+  ctx.fillText('  to randomly generate', 5, canvas.height-35);
+  ctx.fillText('  the planet terrain', 5, canvas.height-10); 
+}
 
-  function drawWorld(ctx, setting, scene, inputHandler, shader, shader3){
+// Creates the unique(random) layout for each of the three planets.
+function drawWorld(ctx, setting, scene, inputHandler, shader, shader3){
 
-    var floor;
-    var terra;
+  var floor;
+  var terra;
 
-    function P(max) 
-    { return Math.floor(Math.random() * Math.floor(max)) + 1 ; }
+  function P(max) 
+  { return Math.floor(Math.random() * Math.floor(max)) + 1 ; }
 
-    if(setting != 0)
-    {
+  if(setting != 0)
+  {  
 
-      if(setting == 1){
-        floor = document.getElementById('Green')
-        terra = document.getElementById('Grass')
+    if(setting == 1){
+      floor = document.getElementById('Green')
+      terra = document.getElementById('Grass')
 
-        //creates planet 2
-        inputHandler.readTexture("objs/P2_P.jpg", function(image) 
-        {
-          var shape = new Cube(shader3, image, 3, 0, 30, -30)
-          scene.addGeometry(shape)
-        })
+      //creates planet 2
+      inputHandler.readTexture("objs/P2_P.jpg", function(image) 
+      {
+        var shape = new Cube(shader3, image, 3, 0, 30, -30)
+        scene.addGeometry(shape)
+      })
         //creates planet 3
-        inputHandler.readTexture("objs/P3_P.jpg", function(image) 
-        {
-          var shape = new Cube(shader3, image, 2, 30, 35, 15)
-          scene.addGeometry(shape)
-        })
-      } 
+      inputHandler.readTexture("objs/P3_P.jpg", function(image) 
+      {
+        var shape = new Cube(shader3, image, 2, 30, 35, 15)
+        scene.addGeometry(shape)
+      })
+    } 
 
-      else if (setting == 2){
-        floor = document.getElementById('Blue')
-        terra = document.getElementById('Ice')
-        //creates planet 1
-        inputHandler.readTexture("objs/P1_P.png", function(image) 
-          {
-            var shape = new Cube(shader3, image, 2, -30, 25, 30)
-            scene.addGeometry(shape)
-          })
-        //creates planet 3
-        inputHandler.readTexture("objs/P3_P.jpg", function(image) 
-          {
-            var shape = new Cube(shader3, image, 2, 30, 35, 15)
-            scene.addGeometry(shape)
-          })
-      } 
+    else if (setting == 2){
+      floor = document.getElementById('Blue')
+      terra = document.getElementById('Ice')
+      //creates planet 1
+      inputHandler.readTexture("objs/P1_P.png", function(image) 
+      {
+        var shape = new Cube(shader3, image, 2, -30, 25, 30)
+        scene.addGeometry(shape)
+      })
+      //creates planet 3
+      inputHandler.readTexture("objs/P3_P.jpg", function(image) 
+      {
+        var shape = new Cube(shader3, image, 2, 30, 35, 15)
+        scene.addGeometry(shape)
+      })
+    } 
 
-      else if (setting == 3){
-        floor = document.getElementById('Red')
-        terra = document.getElementById('Lava')
+    else if (setting == 3){
+      floor = document.getElementById('Red')
+      terra = document.getElementById('Lava')
 
-        //creates planet 1
-        inputHandler.readTexture("objs/P1_P.png", function(image) 
-          {
-            var shape = new Cube(shader3, image, 2, -30, 25, 30)
-            scene.addGeometry(shape)
-          })
+      //creates planet 1
+      inputHandler.readTexture("objs/P1_P.png", function(image) 
+      {
+        var shape = new Cube(shader3, image, 2, -30, 25, 30)
+        scene.addGeometry(shape)
+      })
         //creates planet 2
-        inputHandler.readTexture("objs/P2_P.jpg", function(image) 
-          {
-            var shape = new Cube(shader3, image, 3, 0, 30, -30)
-            scene.addGeometry(shape)
-          })
-      }
+      inputHandler.readTexture("objs/P2_P.jpg", function(image) 
+      {
+        var shape = new Cube(shader3, image, 3, 0, 30, -30)
+        scene.addGeometry(shape)
+      })
+    }
 
-      //draws the map
-      var map = [ 
-        [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0],
-        [0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [1,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1]] 
+    //draws the map of blocks
+    var map = [ 
+      [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0],
+      [0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [1,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1]] 
 
-      for(var i = 0; i < map.length; i++){
-        for(var j = 0; j < map[i].length; j++){
-          if(map[i][j]==1){
-            var y = P(6);
-            var image = terra;
-            var shape = new Terrain(shader, [-30+i*2, -y, -30+j*2], map[i][j], 3, image)
-            scene.addGeometry(shape)
-          } 
-          else if(map[i][j]==2){
-            var y = P(4)
-            var image = terra;
-            var shape = new Terrain(shader, [-30+i*2, -y, -30+j*2], map[i][j], 3, image)
-            scene.addGeometry(shape)
-          }
+    for(var i = 0; i < map.length; i++){
+      for(var j = 0; j < map[i].length; j++){
+        if(map[i][j]==1){
+          var y = P(6);
+          var image = terra;
+          var shape = new Terrain(shader, [-30+i*2, -y, -30+j*2], map[i][j], 3, image)
+          scene.addGeometry(shape)
+        } 
+        else if(map[i][j]==2){
+          var y = P(4)
+          var image = terra;
+          var shape = new Terrain(shader, [-30+i*2, -y, -30+j*2], map[i][j], 3, image)
+          scene.addGeometry(shape)
         }
       }
+    }
 
-      //creates floor 
-        var image = floor;
-        var square = new Square(shader3, image)
-        scene.addGeometry(square)
+    //creates floor 
+    var image = floor;
+    var square = new Square(shader3, image)
+    scene.addGeometry(square)
   }
 
   //creates the sky
@@ -303,28 +328,28 @@ function main() {
       scene.addGeometry(shape)
     })
 
-if(setting == 0)
-{
-  /*
-  Draws the planets 
-  */
-  //creates planet 1
-  inputHandler.readTexture("objs/P1_P.png", function(image) 
+  if(setting == 0)
+  {
+    /*
+    Draws the planets 
+    */
+    //creates planet 1
+    inputHandler.readTexture("objs/P1_P.png", function(image) 
     {
       var shape = new Cube(shader3, image, 2, -30, 25, 30)
       scene.addGeometry(shape)
     })
-  //creates planet 2
-  inputHandler.readTexture("objs/P2_P.jpg", function(image) 
+    //creates planet 2
+    inputHandler.readTexture("objs/P2_P.jpg", function(image) 
     {
       var shape = new Cube(shader3, image, 3, 0, 30, -30)
       scene.addGeometry(shape)
     })
-  //creates planet 3
-  inputHandler.readTexture("objs/P3_P.jpg", function(image) 
+    //creates planet 3
+    inputHandler.readTexture("objs/P3_P.jpg", function(image) 
     {
-      var shape = new Cube(shader3, image, 2, 30, 35, 15)
-      scene.addGeometry(shape)
+        var shape = new Cube(shader3, image, 2, 30, 35, 15)
+        scene.addGeometry(shape)
     })
   }
 }
