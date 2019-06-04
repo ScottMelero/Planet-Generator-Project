@@ -12,16 +12,16 @@
       body { margin: 0; }
       canvas { width: 100%; height: 100%; }
     </style>
-    
-   <!--<audio id="audio" src="https://www.myinstants.com/instant/hitmarkermp3/" ></audio>--> 
 
     <canvas id="webgl" style="position: absolute; z-index: 0"></canvas>
     <canvas id="hud" style="position: absolute; z-index: 1"></canvas>    
 
-    <input type="button" style="z-index:2; position:absolute; top:x; left:y" value="Forest planet"/>
-    <input type="button" style="z-index:2; position:absolute; top:x; left:y" value="Forest planet"/>
-    <input type="button" style="z-index:2; position:absolute; top:x; left:y" value="Forest planet"/>
-    
+    <input type="button" id="ForestPlanet" style="z-index:2; position:absolute; top:x; left:y" value="Forest planet" onclick="SelectForest()"/>
+    <br></br>
+    <input type="button" id="IcePlanet" style="z-index:2; position:absolute; top:x; left:y" value="Ice planet" onclick="main()"/>
+    <br></br>
+    <input type="button" id="FirePlanet" style="z-index:2; position:absolute; top:x; left:y" value="Fire planet" onclick="main ()"/>
+
     <!-- Include external libs -->
     <script src = "lib/webgl-utils.js"></script>
     <script src = "lib/webgl-render.js"></script>

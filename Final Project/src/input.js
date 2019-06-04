@@ -20,7 +20,6 @@ class InputHandler {
       _inputHandler = this;
       
       this.canvas.onmousemove = function(ev) { _inputHandler.mouseMove(ev) };
-      this.canvas.onmouseover = function(ev) { _inputHandler.mouseMove(ev) };
       this.canvas.addEventListener('wheel', function(ev) { _inputHandler.mouseZoom(ev)}, false)
 
       // Keyboard Events
@@ -83,21 +82,4 @@ class InputHandler {
         return true;
     }
 
-    // alert1()
-    // {
-    //     window.alert("this is a firey planet");
-    //     return;
-    // }
-
-    // alert2()
-    // {
-    //     window.alert("this is a forest planet");
-    //     return;
-    // }
-
-    // alert3()
-    // {
-    //     window.alert("this is a water planet");
-    //     return;
-    // }
 }
