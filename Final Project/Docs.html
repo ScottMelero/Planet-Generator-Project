@@ -26,7 +26,7 @@
     <span style="font-size:  14pt;">
             The goal of this project is to simulate a ‘universe’ where the user (who exists in a void of space) is capable of creating their own planet surface by interacting with RGB colored buttons/cubes within the sky.
             <br></br>
-            The experience we are trying to create is interactive art. In essence we want the user to be able to create unique(random) worlds based on their interactions with buttons.
+            The experience we are trying to create is interactive art. In essence we want the user to be able to explore and create unique(random) worlds based on their interactions with buttons.
 
     </span>
     </p>
@@ -49,7 +49,7 @@
     <div style="background-color: #003c6c; text-align: left; vertical-align: middle; padding: 3px  14px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">Design & Style</span></strong></span></div>
     <p>
     <span style="font-size:  14pt;">
-            The visual style of the world will be in between voxel/realistic. When it comes to visual references, we are aiming for something that applies a combination of minecraft texturing with more realistic texturing. The visual effects we will need to implement will consist of fog, collision detections, and canvas resizing to the entire screen. 
+            The visual style of the world will be in between voxel/realistic. When it comes to visual references, we are aiming for something that applies a combination of minecraft texturing with more realistic texturing. The visual effects we will need to implement will consist of fog, terrain layering, and canvas resizing to the entire screen. 
             We are drawing design inspiration from games like no man's sky that feature procedurally generated planets and terrains. We are also looking at NASA’s global color mapping techniques where they can map a planet's topography based off of the surface color. 
 
     </span>
@@ -63,11 +63,11 @@
     <span style="font-size:  14pt;">
             HUD: There will be multiple HUD's that exist throughout this project. There is the "starting" HUD which will give directions on how to move/interact with the world. The other HUDs, which provide unique descriptions of the planets, are created when the user clicks the buttons.
             <br></br>
-            Fog: This will be implemented for some of the worlds and is used to depict planets that have a more dense atmosphere. In essence, this is to strengthen the realistic perspective of our world. 
+            Fog: This will be implemented for each one of the worlds and is used to depict planets that have a more dense atmosphere. In essence, this is to strengthen the realistic perspective of our voxel world. 
             <br></br>
-            Terrain Layering/Randomization: This technique is what will give each planet surface a unique/random surface of cubes. We are layering multiple blocks throughout the surface to create "jagged, natural" surfaces for a more realistic affect. 
+            Terrain Layering/Randomization: This technique is what will give each planet surface a unique/random surface of cubes. We are layering multiple blocks throughout the surface to create "jagged, natural" surfaces for a more realistic affect in different positions along the x, y, and z axis'. 
             <br></br>
-            Color Picking: This will be accomplished through the buttons and help apply colors/textures to the surface terrain.
+            Color Picking: This will be accomplished through the buttons and help apply colors/textures to the surface terrain. This creates a more functional and interactive portion of this project where the user can change between one world to another. 
              
 
     </span>
@@ -83,16 +83,32 @@
             For instance, we need to create three cubes(planets) and spread them accordingly across our sky. Doing such requires obtaining the correct vertices in accordance with the size of the map. 
             Furthermore, we intend to use a ‘randomize’ feature that will help with creating unique terrains. Thus it will take some time to learn how to reference this function with the geometry of our world. 
             <br></br>
-            Note: In order to accomplish the above features we are using all libraries from the homework assignments as well as Javascripts Math.js library. 
+            Note: In order to accomplish the above features we are using all libraries from the homework assignments as well as Javascript's Math.js library. 
 
 
     </span>
     </p>
     <p></p>
-     
 
-    
-    
-    
-    
-    
+    <!-- Instructions on how to interact -->
+    <div style="background-color: #003c6c; text-align: left; vertical-align: middle; padding: 3px  14px;"><span style="font-size: 14pt;"><strong><span style="color: #ffffff;">How to Interact</span></strong></span></div>
+    <p>
+    <span style="font-size:  14pt;">
+            In order to interact:
+            <br></br>
+            1) The user will be able to move using the keys - W A S D
+            <br></br>
+            2) Click on the screen to control camera movement
+               <br></br> 
+               --2a) The user has free range to look around
+               <br></br>
+               --2b) The user can scroll into and out of objects
+               <br></br>
+               --2c) Press the 'esc' key to stop camera movement
+               <br></br>
+            3) Press the buttons at the top left to change the planet terrain or revert back to the starting screen
+            4) Included at the bottom right is a documentation button. 
+
+    </span>
+    </p>
+    <p></p>
