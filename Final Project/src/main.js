@@ -1,9 +1,11 @@
 var setting = 0; 
+var shader = null;
+
 
 /*
-* Functions to select world terrain. 
-*/
-var shader = null;
+ * Functions to select world terrain. 
+ * on this will set the setting value for the world textures 
+ */
 function SelectForest()
 {
   setting = 1;
@@ -44,6 +46,10 @@ function SelectFire()
 }
 
 
+/*
+ * Start of Main.
+ * This is where everything while be drawn and where most of the vars are initiated. 
+ */
 function main() {
   // Retrieve the canvas from the HTML document
   canvas = document.getElementById("webgl");
@@ -61,7 +67,10 @@ function main() {
     return;
   }
 
-  // pointer lock object forking for cross browser
+  /*
+   * pointer lock object forking for cross browser
+   * this will lock the mosue to the  screen bounds for ease of use.
+  */
   canvas.requestPointerLock = canvas.requestPointerLock ||
   canvas.mozRequestPointerLock;
 
@@ -83,7 +92,10 @@ function main() {
     }
 
     
-  // Resizes the canvas to fit the viewport 
+  /*
+   * Resizes the canvas to fit the viewport 
+   * works on all systems and makes for a more enjoyable experience. 
+   */ 
   function resize(canvas, hud) {
     // Lookup the size the browser is displaying the canvas.
     var displayWidth  = canvas.clientWidth;
@@ -102,10 +114,11 @@ function main() {
       hud.height = canvas.height;
     }
   }
-  
   resize(canvas, hud); 
 
-  // Retrieve WebGL rendering context
+  /*
+   * Retrieve WebGL rendering context
+   */ 
   var gl = getWebGLContext(canvas);
   var ctx = hud.getContext('2d');
   if (!gl || !ctx) {
@@ -113,18 +126,29 @@ function main() {
     return;
   }
 
-  // Implement fog onto the planet terrains
+  /*
+   * Implement fog onto the planet terrains
+   */ 
   var light = new Light(60, 1, 60);
   var fog = new Fog(0.5, 0.5, 0.5, 1, 50)
 
-  // Initialize the scene
+  /* 
+   * Initialize the scene
+   * also initializs the fog and camera 
+   */ 
   var scene = new Scene();
   var camera = new Camera();
   scene.setLight(light);
   scene.addFog(fog)
 
+  // input handler
   var inputHandler = new InputHandler(canvas, scene, camera, hud, fog);
 
+  /*
+   * Initialize all the shaders 
+   * one shader for fogged objects
+   * other for non fogged objects.
+   */
   // Initialize shader
   shader = new Shader(gl, ASG4_VSHADER, ASG4_FSHADER);
 
@@ -178,16 +202,25 @@ function main() {
   shader3.addUniform("u_DiffuseColor", "vec3", new Vector3().elements);
   shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
 
-  drawWorld(ctx, setting, scene, inputHandler, shader, shader3)
+  /*
+   * Draws the world 
+   */ 
+  drawWorld(setting, scene, inputHandler, shader, shader3)
+  // for the H.U.D
+  draw2D(ctx)
 
-  // Initialize renderer with scene and camera
+
+  /*
+   * Initialize renderer with scene and camera
+   */ 
   renderer = new Renderer(gl, scene, camera);
   renderer.start();
-  
-  draw2D(ctx)
 }
 
-// Creates the starting hud
+/* 
+ * Creates the starting hud
+ * adds the directions for how to play and interact
+ */
 function draw2D(ctx) {
   ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
   ctx.font = '18px "Impact"';
@@ -198,8 +231,11 @@ function draw2D(ctx) {
   ctx.fillText('  the planet terrain', 5, canvas.height-10); 
 }
 
-// Creates the unique(random) layout for each of the three planets.
-function drawWorld(ctx, setting, scene, inputHandler, shader, shader3){
+/*
+ * Creates the unique(random) layout for each of the three planets.
+ * uses the setting var to determine which textures the world will get.  
+ */ 
+function drawWorld(setting, scene, inputHandler, shader, shader3){
 
   var floor;
   var terra;
