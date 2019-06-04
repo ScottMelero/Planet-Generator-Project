@@ -3,7 +3,7 @@ var setting = 0;
 /*
 * Functions to select world terrain. 
 */
-//var shader = null;
+var shader = null;
 function SelectForest()
 {
   setting = 1;
@@ -156,7 +156,7 @@ function main() {
   shader.addUniform("u_SpecularColor", "vec3", new Vector3().elements);
 
 
-  drawWorld(setting, scene, inputHandler, shader, shader3)
+  drawWorld(ctx, setting, scene, inputHandler, shader, shader3)
 
   // Initialize renderer with scene and camera
   renderer = new Renderer(gl, scene, camera);
@@ -174,7 +174,7 @@ function main() {
     ctx.fillText('  generate the planet terrain', 5, canvas.height-295); 
   }
 
-  function drawWorld(setting, scene, inputHandler, shader, shader3){
+  function drawWorld(ctx, setting, scene, inputHandler, shader, shader3){
 
     function P(max) 
     { return Math.floor(Math.random() * Math.floor(max)) + 1 ; }
@@ -188,10 +188,12 @@ function main() {
       if(setting == 1){
         floor = document.getElementById('Green')
         terra = document.getElementById('Grass')
-      } else if (setting == 2){
+      } 
+      else if (setting == 2){
         floor = document.getElementById('Blue')
         terra = document.getElementById('Ice')
-      } else if (setting == 3){
+      } 
+      else if (setting == 3){
         floor = document.getElementById('Red')
         terra = document.getElementById('Lava')
       }
