@@ -225,10 +225,10 @@ function draw2D(ctx) {
   ctx.clearRect(0, 0, canvas.height, canvas.width); // Clear <hud>
   ctx.font = '18px "Impact"';
   ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Set white to the color of letters
-  ctx.fillText('- Move with W A S D', 5, canvas.height-85); 
-  ctx.fillText('- Click on the buttons ', 5, canvas.height-60); 
-  ctx.fillText('  to randomly generate', 5, canvas.height-35);
-  ctx.fillText('  the planet terrain', 5, canvas.height-10); 
+  ctx.fillText('- Move with W A S D', 0, canvas.height-85); 
+  ctx.fillText('- Click on the buttons ', 0, canvas.height-60); 
+  ctx.fillText('  to randomly generate', 0, canvas.height-35);
+  ctx.fillText('  the planet terrain', 0, canvas.height-10); 
 }
 
 /*

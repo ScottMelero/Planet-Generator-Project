@@ -1,0 +1,3 @@
+Korbie and i split up the work relativley 50/50. He worked on the documentation and creating the initial world layout. 
+he got the hud and layered canvases working. I worked on the fog and color pickling and implemented the random world generator. 
+we both collaborated for most of the code. 
