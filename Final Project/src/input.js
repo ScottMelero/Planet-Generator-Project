@@ -20,10 +20,16 @@ class InputHandler {
       _inputHandler = this;
       
       this.canvas.onmousemove = function(ev) { _inputHandler.mouseMove(ev) };
+      this.canvas.onmouseclick = function(ev) { _inputHandler.gamerTime(ev) };
       this.canvas.addEventListener('wheel', function(ev) { _inputHandler.mouseZoom(ev)}, false)
 
       // Keyboard Events
       document.addEventListener('keydown', function(ev) { _inputHandler.keyDown(ev); }, false);
+    }
+
+    gamerTime(ev) {
+        var mlg = new Audio('src/hitmarker.mp3')
+        mlg.play();
     }
 
     mouseMove(ev) {

@@ -10,7 +10,6 @@
 
       <img id="Red" src="objs/P3_F.jpg" width="0"height="0"></img>
       <img id="Lava" src="objs/P3_T.png" width="0"height="0"></img>
-
   </head>
   <body onload = "main()">
 
@@ -21,7 +20,6 @@
       .button {
       font-family: "Impact";
       color: white;
-      border: 0;
       padding: 10px 25px;
       text-align: center;
       text-decoration: none;
@@ -34,7 +32,7 @@
       .button1 {background-color: #4CAF50;} /* Green */
       .button2 {background-color: #008CBA;} /* Blue */
       .button3 {background-color: #f44336;} /* Red */ 
-      .button4 {background-color: #000000;} /* black */ 
+      .button4 {background-color: #000000; border: 2;} /* black */
     </style>   
 
     <canvas id="webgl" style="position: absolute; z-index: 0"></canvas>
@@ -44,6 +42,7 @@
     <input type="button" class="button button2" style="z-index:2; position:absolute; top:45px; left:20px" value = "Ice planet" onclick="SelectIce()"/>
     <input type="button" class="button button3" style="z-index:2; position:absolute; top:85; left:20px" value = "Fire planet" onclick="SelectFire()"/>
     <input type="button" class="button button4" style="z-index:2; position:absolute; top:125; left:20px" value = "The Void"  onClick="history.go(0)"/>
+    <input type="button" class="button button4" style="z-index:2; position:absolute; bottom:0px; right:0px" value = "Documentation"  onClick="location.href = 'file:///C:/Users/scott/Code/CMPS_160/Final%20Project/Docs.html';"/>
     
     <!-- Include external libs -->
     <script src = "lib/webgl-utils.js"></script>
